@@ -3,7 +3,7 @@ from groq import Groq
 
 st.title("My AI Chatbot 🤖")
 
-api_key = "paste-your-key-here"
+api_key = "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"
 client = Groq(api_key=api_key)
 
 if "messages" not in st.session_state:
