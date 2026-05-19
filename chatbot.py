@@ -25,10 +25,21 @@ api_key = "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"
 client = Groq(api_key=api_key)
 
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages = [
+        {
+            "role": "system",
+            "content": """You are Rohit's personal AI Study & Coding Assistant. 
+You help with programming, AI/ML concepts, debugging code, and BTech subjects.
+You explain things simply and clearly, like a smart friend who knows everything about tech.
+When someone shares code, you analyze it and suggest improvements.
+You are encouraging, friendly, and always push the user to learn and grow.
+Keep responses concise and practical."""
+        }
+    ]
 
 for msg in st.session_state.messages:
-    st.chat_message(msg["role"]).write(msg["content"])
+    if msg["role"] != "system":
+        st.chat_message(msg["role"]).write(msg["content"])
 
 user_input = st.chat_input("Ask me anything...")
 
