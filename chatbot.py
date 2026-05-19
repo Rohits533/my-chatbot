@@ -1,5 +1,7 @@
 import streamlit as st
 from groq import Groq
+import PyPDF2
+import io
 
 st.set_page_config(
     page_title="Rohit's AI Assistant",
@@ -23,21 +25,29 @@ st.divider()
 api_key = "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"
 client = Groq(api_key=api_key)
 
-if "messages" not in st.session_state:
-    st.session_state.messages = [
-        {
-            "role": "system",
-            "content": """You are Rohit's personal AI Study & Coding Assistant. 
+uploaded_file = st.file_uploader("📄 Upload a PDF to chat with it", type="pdf")
+
+pdf_text = ""
+if uploaded_file:
+    pdf_reader = PyPDF2.PdfReader(io.BytesIO(uploaded_file.read()))
+    for page in pdf_reader.pages:
+        pdf_text += page.extract_text()
+    st.success("✅ PDF loaded! Ask me anything about it.")
+
+system_prompt = """You are Rohit's personal AI Study & Coding Assistant.
 You help with programming, AI/ML concepts, debugging code, and BTech subjects.
 You explain things simply and clearly, like a smart friend who knows everything about tech.
-When someone shares code, you analyze it and suggest improvements.
 You are encouraging, friendly, and always push the user to learn and grow.
 Keep responses concise and practical."""
-        }
-    ]
+
+if pdf_text:
+    system_prompt += f"\n\nThe user has uploaded a document. Use this to answer their questions:\n{pdf_text[:6000]}"
+
+if "messages" not in st.session_state:
+    st.session_state.messages = [{"role": "system", "content": system_prompt}]
 
 if st.button("🗑️ Clear Chat"):
-    st.session_state.messages = [st.session_state.messages[0]]
+    st.session_state.messages = [{"role": "system", "content": system_prompt}]
     st.rerun()
 
 for msg in st.session_state.messages:
