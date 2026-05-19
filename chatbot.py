@@ -1,71 +1,74 @@
 import streamlit as st
 from groq import Groq
-import PyPDF2
-import io
 
 st.set_page_config(
-    page_title="Rohit's AI Assistant",
-    page_icon="🤖",
+    page_title="Rohit's Code Explainer",
+    page_icon="💻",
     layout="centered"
 )
 
 st.markdown("""
     <style>
     .stApp { background-color: #0f1117; }
-    .stChatMessage { border-radius: 12px; padding: 10px; }
     h1 { color: #00d4ff; text-align: center; }
     p { color: #888; text-align: center; }
+    .stTextArea textarea { background-color: #1e1e2e; color: #cdd6f4; font-family: monospace; border-radius: 10px; }
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<h1>🤖 Rohit's AI Assistant</h1>", unsafe_allow_html=True)
-st.markdown("<p>Powered by Llama 3 • Built by Rohit</p>", unsafe_allow_html=True)
+st.markdown("<h1>💻 Rohit's Code Explainer</h1>", unsafe_allow_html=True)
+st.markdown("<p>Paste any code — AI will explain, debug and improve it</p>", unsafe_allow_html=True)
 st.divider()
 
 api_key = "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"
 client = Groq(api_key=api_key)
 
-uploaded_file = st.file_uploader("📄 Upload a PDF to chat with it", type="pdf")
+code_input = st.text_area("Paste your code here:", height=250, placeholder="def hello():\n    print('Hello World')")
 
-pdf_text = ""
-if uploaded_file:
-    pdf_reader = PyPDF2.PdfReader(io.BytesIO(uploaded_file.read()))
-    for page in pdf_reader.pages:
-        pdf_text += page.extract_text()
-    st.success("✅ PDF loaded! Ask me anything about it.")
+col1, col2, col3 = st.columns(3)
 
-system_prompt = """You are Rohit's personal AI Study & Coding Assistant.
-You help with programming, AI/ML concepts, debugging code, and BTech subjects.
-You explain things simply and clearly, like a smart friend who knows everything about tech.
-You are encouraging, friendly, and always push the user to learn and grow.
-Keep responses concise and practical."""
+with col1:
+    explain = st.button("📖 Explain")
+with col2:
+    debug = st.button("🐛 Find Bugs")
+with col3:
+    improve = st.button("⚡ Improve")
 
-if pdf_text:
-    system_prompt += f"\n\nThe user has uploaded a document. Use this to answer their questions:\n{pdf_text[:6000]}"
+if code_input:
+    if explain:
+        with st.spinner("Analyzing..."):
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {"role": "system", "content": "You are an expert coding assistant. Explain code simply and clearly."},
+                    {"role": "user", "content": f"Explain this code step by step:\n\n{code_input}"}
+                ]
+            )
+        st.markdown("### 📖 Explanation")
+        st.write(response.choices[0].message.content)
 
-if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "system", "content": system_prompt}]
+    if debug:
+        with st.spinner("Finding bugs..."):
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {"role": "system", "content": "You are an expert debugger. Find bugs and errors in code."},
+                    {"role": "user", "content": f"Find any bugs or errors in this code:\n\n{code_input}"}
+                ]
+            )
+        st.markdown("### 🐛 Bugs Found")
+        st.write(response.choices[0].message.content)
 
-if st.button("🗑️ Clear Chat"):
-    st.session_state.messages = [{"role": "system", "content": system_prompt}]
-    st.rerun()
-
-for msg in st.session_state.messages:
-    if msg["role"] != "system":
-        st.chat_message(msg["role"]).write(msg["content"])
-
-user_input = st.chat_input("Ask me anything...")
-
-if user_input:
-    st.session_state.messages.append({"role": "user", "content": user_input})
-    st.chat_message("user").write(user_input)
-
-    with st.spinner("Thinking..."):
-        response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=st.session_state.messages
-        )
-
-    reply = response.choices[0].message.content
-    st.session_state.messages.append({"role": "assistant", "content": reply})
-    st.chat_message("assistant").write(reply)
+    if improve:
+        with st.spinner("Improving..."):
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {"role": "system", "content": "You are an expert software engineer. Suggest improvements to code."},
+                    {"role": "user", "content": f"Suggest improvements for this code:\n\n{code_input}"}
+                ]
+            )
+        st.markdown("### ⚡ Improvements")
+        st.write(response.choices[0].message.content)
+else:
+    st.info("👆 Paste some code above to get started!")
