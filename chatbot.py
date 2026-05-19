@@ -1,9 +1,27 @@
 import streamlit as st
 from groq import Groq
 
-st.title("My AI Chatbot 🤖")
+st.set_page_config(
+    page_title="Rohit's AI Assistant",
+    page_icon="🤖",
+    layout="centered"
+)
 
-api_key = "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"
+st.markdown("""
+    <style>
+    .stApp { background-color: #0f1117; }
+    .stChatMessage { border-radius: 12px; padding: 10px; }
+    .stTextInput input { border-radius: 20px; }
+    h1 { color: #00d4ff; text-align: center; }
+    p { color: #888; text-align: center; }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("<h1>🤖 Rohit's AI Assistant</h1>", unsafe_allow_html=True)
+st.markdown("<p>Powered by Llama 3 • Built by Rohit</p>", unsafe_allow_html=True)
+st.divider()
+
+api_key = "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"
 client = Groq(api_key=api_key)
 
 if "messages" not in st.session_state:
@@ -12,7 +30,7 @@ if "messages" not in st.session_state:
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
-user_input = st.chat_input("Type your message here...")
+user_input = st.chat_input("Ask me anything...")
 
 if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input})
