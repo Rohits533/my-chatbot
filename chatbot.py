@@ -11,7 +11,6 @@ st.markdown("""
     <style>
     .stApp { background-color: #0f1117; }
     .stChatMessage { border-radius: 12px; padding: 10px; }
-    .stTextInput input { border-radius: 20px; }
     h1 { color: #00d4ff; text-align: center; }
     p { color: #888; text-align: center; }
     </style>
@@ -37,6 +36,10 @@ Keep responses concise and practical."""
         }
     ]
 
+if st.button("🗑️ Clear Chat"):
+    st.session_state.messages = [st.session_state.messages[0]]
+    st.rerun()
+
 for msg in st.session_state.messages:
     if msg["role"] != "system":
         st.chat_message(msg["role"]).write(msg["content"])
@@ -47,10 +50,11 @@ if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.chat_message("user").write(user_input)
 
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=st.session_state.messages
-    )
+    with st.spinner("Thinking..."):
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=st.session_state.messages
+        )
 
     reply = response.choices[0].message.content
     st.session_state.messages.append({"role": "assistant", "content": reply})
