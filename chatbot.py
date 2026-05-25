@@ -23,7 +23,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-api_key = "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"
+api_key = "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"
 client = Groq(api_key=api_key)
 
 llm = ChatGroq(
