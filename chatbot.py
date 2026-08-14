@@ -18,13 +18,8 @@ st.markdown("""
     <style>
     /* Entry Animations */
     @keyframes techFadeIn {
-        0% { opacity: 0; transform: translateY(20px); filter: blur(5px); }
+        0% { opacity: 0; transform: translateY(20px); filter: blur(2px); }
         100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-    }
-    @keyframes gridPulse {
-        0% { opacity: 0.3; }
-        50% { opacity: 0.6; }
-        100% { opacity: 0.3; }
     }
 
     /* ChainGPT Light Tech Theme Background */
@@ -41,7 +36,7 @@ st.markdown("""
     /* Welcome Landing Wrapper */
     .welcome-container {
         text-align: center;
-        margin-top: 10vh;
+        margin-top: 15vh;
         animation: techFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     .welcome-subtitle {
@@ -61,15 +56,14 @@ st.markdown("""
         margin-bottom: 30px;
     }
 
-    /* ChainGPT Premium Top Header Bar */
+    /* Updated Clean Top Header Ribbon Wrapper */
     .brand-top-nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 40px;
+        padding: 18px 40px;
         background-color: #e6e8eb;
         border-bottom: 1px solid #c2c8d4;
-        margin-bottom: 0px;
         animation: techFadeIn 0.5s ease-out forwards;
     }
     .brand-logo-wrap {
@@ -87,23 +81,23 @@ st.markdown("""
         font-weight: 900;
         letter-spacing: 1px;
         color: #0f1115;
+        text-transform: uppercase;
     }
-    .brand-menu-links {
-        display: flex;
-        gap: 30px;
-        font-size: 13px;
-        color: #60687d;
-        font-weight: 600;
-    }
-    .brand-cta-pill {
-        background-color: #ff5a1f;
-        color: #ffffff;
+    .portfolio-link-button {
+        display: inline-block;
+        background-color: #0f1115;
+        color: #ffffff !important;
         font-size: 11px;
         font-weight: 700;
-        padding: 8px 20px;
+        padding: 10px 22px;
         text-transform: uppercase;
         letter-spacing: 1px;
         border-radius: 4px;
+        text-decoration: none !important;
+        transition: background-color 0.2s ease;
+    }
+    .portfolio-link-button:hover {
+        background-color: #242933;
     }
 
     /* Architectural Block Content Containers */
@@ -115,7 +109,6 @@ st.markdown("""
         position: relative;
         animation: techFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    /* Technical Grid Corner Crosshair Marks */
     .chaingpt-panel::before {
         content: '';
         position: absolute;
@@ -158,7 +151,7 @@ st.markdown("""
         margin-bottom: 20px;
     }
 
-    /* Universal Buttons styled exactly like Orange Web3 CTAs */
+    /* Universal Buttons */
     .stButton>button {
         background-color: #ff5a1f !important;
         color: #ffffff !important;
@@ -212,35 +205,32 @@ if "app_unlocked" not in st.session_state:
 if not st.session_state.app_unlocked:
     st.markdown("""
         <div class="welcome-container">
-            <div class="welcome-subtitle">BACKING THE NEXT WAVE OF VISIONARIES</div>
+            <div class="welcome-subtitle">SYSTEM INSTANCE INITIALIZATION</div>
             <div class="welcome-title">WELCOME TO<br>ROHIT'S CHATBOT</div>
         </div>
     """, unsafe_allow_html=True)
     
-    col_l, col_btn, col_r = st.columns([2, 1, 2])
+    col_l, col_btn, col_r = st.columns([1, 2, 1])
     with col_btn:
         if st.button("ENTER CHATBOT SYSTEM 🚀", use_container_width=True):
             st.session_state.app_unlocked = True
             st.rerun()
     st.stop()
 
-# 6. HEADER DEPLOYMENT (ONCE UNLOCKED)
+# 6. UPDATED HEADER DEPLOYMENT (ONCE UNLOCKED)
 st.markdown("""
     <div class="brand-top-nav">
         <div class="brand-logo-wrap">
             <div class="brand-orange-cube"></div>
-            <div class="brand-logo-text">CHAINGPT LABS // ROHIT</div>
+            <div class="brand-logo-text">WELCOME TO ROHIT'S CHATBOT</div>
         </div>
-        <div class="brand-menu-links">
-            <div>Our Programs</div><div>Portfolio</div><div>Media</div><div>Reviews</div><div>Team</div><div>FAQ</div>
-        </div>
-        <div class="brand-cta-pill">APPLY NOW</div>
+        <a class="portfolio-link-button" href="https://github.io" target="_blank">🔗 VIEW MY PORTFOLIO</a>
     </div>
     <div style="margin-bottom: 30px;"></div>
 """, unsafe_allow_html=True)
 
 # 7. SIDEBAR SYSTEM NAVIGATION
-st.sidebar.markdown("<h3 style='margin-top:10px;'>⚙️ CORE CORE INSTANCES</h3>", unsafe_allow_html=True)
+st.sidebar.markdown("<h3 style='margin-top:10px;'>⚙️ CORE INSTANCES</h3>", unsafe_allow_html=True)
 page = st.sidebar.radio("CHOOSE MODULE:", [
     "💬 Chat",
     "🔍 Web Search Agent",
@@ -288,7 +278,7 @@ Keep responses concise and practical."""
                 model="llama-3.3-70b-versatile",
                 messages=st.session_state.messages
             )
-        reply = response.choices[0].message.content
+        reply = response.choices.message.content
         st.session_state.messages.append({"role": "assistant", "content": reply})
         st.chat_message("assistant").write(reply)
 
@@ -347,7 +337,7 @@ elif page == "💻 Code Explainer":
                     ]
                 )
             st.markdown('<h3>📖 LOGIC MAP BREAKDOWN</h3>', unsafe_allow_html=True)
-            st.write(response.choices[0].message.content)
+            st.write(response.choices.message.content)
 
         if debug:
             with st.spinner("Compiling Array..."):
@@ -359,7 +349,7 @@ elif page == "💻 Code Explainer":
                     ]
                 )
             st.markdown('<h3>🐛 SYNTAX EXCEPTIONS ENCOUNTERED</h3>', unsafe_allow_html=True)
-            st.write(response.choices[0].message.content)
+            st.write(response.choices.message.content)
 
         if improve:
             with st.spinner("Refactoring Telemetry..."):
@@ -371,7 +361,7 @@ elif page == "💻 Code Explainer":
                     ]
                 )
             st.markdown('<h3>⚡ PROPOSED SYSTEM OPTIMIZATIONS</h3>', unsafe_allow_html=True)
-            st.write(response.choices[0].message.content)
+            st.write(response.choices.message.content)
 
 elif page == "📝 Quiz Generator":
     st.markdown("""
@@ -396,7 +386,7 @@ elif page == "📝 Quiz Generator":
                     ]
                 )
             st.markdown('<h3>🎯 GENERATED TRAINING OBJECT FRAMEWORKS</h3>', unsafe_allow_html=True)
-            st.write(response.choices[0].message.content)
+            st.write(response.choices.message.content)
         else:
             st.warning("Variable Declaration Missing: Enter a topic input first.")
 
@@ -438,6 +428,6 @@ elif page == "📄 PDF Reader":
                     *st.session_state.pdf_messages
                 ]
             )
-        reply = response.choices[0].message.content
+        reply = response.choices.message.content
         st.session_state.pdf_messages.append({"role": "assistant", "content": reply})
         st.chat_message("assistant").write(reply)
