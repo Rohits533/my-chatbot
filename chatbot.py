@@ -18,55 +18,58 @@ st.set_page_config(
 )
 
 # =============================================================================
-# 2. INJECT ADVANCED ACCELERATED KEYFRAME CSS ROUTINES
+# 2. INJECT CYBERPUNK AMBIENT ORANGE LASER BACKGROUND ANIMATION MATRIX
 # =============================================================================
 st.markdown("""
     <style>
-    /* Cinematic Telemetry Entry Hardware Animations */
+    /* Accelerated Graphic Rendering Animations */
     @keyframes entryZoomFade {
         0% { opacity: 0; transform: scale(0.96) translateY(40px); filter: blur(10px); }
-        40% { opacity: 0.5; filter: blur(4px); }
         100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
     }
     @keyframes fluidPanelSlide {
         0% { opacity: 0; transform: translateY(25px); filter: blur(4px); }
         100% { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
-    @keyframes pulseTargetCrosshair {
-        0% { box-shadow: 0 0 10px rgba(255, 90, 31, 0.2); border-color: #0f1115; }
-        50% { box-shadow: 0 0 25px rgba(255, 90, 31, 0.6); border-color: #ff5a1f; }
-        100% { box-shadow: 0 0 10px rgba(255, 90, 31, 0.2); border-color: #0f1115; }
-    }
-    @keyframes gridMeshScroll {
-        0% { background-position: 0px 0px; }
-        100% { background-position: 60px 60px; }
+    @keyframes orangeLaserScroll {
+        0% { background-position: 0px 0px, 0px 0px; }
+        100% { background-position: 120px 120px, -60px 60px; }
     }
 
-    /* Core Architectural Blueprint Mesh Layout Background Configuration */
+    /* Architectural Dynamic Glowing Orange Laser Grid Background Override */
     .stApp {
-        background-color: #e6e8eb !important;
+        background-color: #0d0f14 !important;
         background-image: 
-            linear-gradient(to right, #ccd2db 1px, transparent 1px),
-            linear-gradient(to bottom, #ccd2db 1px, transparent 1px) !important;
-        background-size: 60px 60px !important;
-        color: #0f1115 !important;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif !important;
-        animation: gridMeshScroll 30s linear infinite;
+            linear-gradient(to right, rgba(255, 90, 31, 0.12) 2px, transparent 2px),
+            linear-gradient(to bottom, rgba(255, 90, 31, 0.12) 2px, transparent 2px),
+            radial-gradient(circle at 50% 50%, rgba(255, 90, 31, 0.05) 0%, transparent 80%) !important;
+        background-size: 60px 60px, 60px 60px, 100% 100% !important;
+        color: #e2e8f0 !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        animation: orangeLaserScroll 20s linear infinite !important;
     }
 
     /* Gateway Landing Dashboard Hero Wrapper */
     .gateway-entry-container {
         text-align: center;
         margin-top: 12vh;
-        padding: 50px;
-        background-color: rgba(230, 232, 235, 0.7);
-        border: 2px dashed #b8bfc9;
-        border-radius: 8px;
-        backdrop-filter: blur(10px);
-        max-width: 900px;
+        padding: 60px;
+        background-color: rgba(13, 15, 20, 0.85);
+        border: 2px solid rgba(255, 90, 31, 0.3);
+        border-radius: 0px;
+        backdrop-filter: blur(15px);
+        max-width: 850px;
         margin-left: auto;
         margin-right: auto;
+        box-shadow: 0 0 40px rgba(255, 90, 31, 0.15);
+        position: relative;
         animation: entryZoomFade 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .gateway-entry-container::before {
+        content: ''; position: absolute; top: -5px; left: -5px; width: 10px; height: 10px; background-color: #ff5a1f;
+    }
+    .gateway-entry-container::after {
+        content: ''; position: absolute; bottom: -5px; right: -5px; width: 10px; height: 10px; background-color: #ff5a1f;
     }
     .gateway-tagline {
         font-size: 13px;
@@ -79,7 +82,7 @@ st.markdown("""
     .gateway-title {
         font-size: 88px;
         font-weight: 900;
-        color: #0f1115;
+        color: #ffffff;
         letter-spacing: -3px;
         text-transform: uppercase;
         line-height: 0.95;
@@ -88,7 +91,7 @@ st.markdown("""
     .gateway-subtitle {
         font-size: 19px;
         font-weight: 600;
-        color: #555e72;
+        color: #8fa0be;
         letter-spacing: 0.5px;
         margin-bottom: 50px;
     }
@@ -101,10 +104,11 @@ st.markdown("""
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 18px 45px;
-        background-color: #e6e8eb;
-        border-bottom: 2px solid #b8bfc9;
+        padding: 20px 45px;
+        background-color: rgba(13, 15, 20, 0.9);
+        border-bottom: 2px solid rgba(255, 90, 31, 0.3);
         margin-bottom: 0px;
+        backdrop-filter: blur(10px);
         animation: fluidPanelSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     .brand-logo-cluster {
@@ -116,94 +120,76 @@ st.markdown("""
         width: 14px;
         height: 14px;
         background-color: #ff5a1f;
+        box-shadow: 0 0 10px #ff5a1f;
     }
     .brand-logo-text-string {
         font-size: 15px;
         font-weight: 900;
-        letter-spacing: 1px;
-        color: #0f1115;
+        letter-spacing: 1.5px;
+        color: #ffffff;
         text-transform: uppercase;
     }
     
     /* Neo-Brutalist Technical Panel Workspace Shell Modules */
     .neobrutalist-content-card {
-        background-color: #edf0f4 !important;
-        border: 2px solid #0f1115 !important;
+        background-color: rgba(19, 22, 31, 0.9) !important;
+        border: 2px solid rgba(255, 90, 31, 0.2) !important;
         border-radius: 0px !important;
         padding: 45px !important;
         margin-bottom: 35px !important;
         position: relative;
-        box-shadow: 6px 6px 0px #0f1115 !important;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
         animation: fluidPanelSlide 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    
-    /* Technical Blueprint Mesh Corner ticks */
     .neobrutalist-content-card::before {
-        content: '';
-        position: absolute;
-        top: -6px;
-        left: -6px;
-        width: 10px;
-        height: 10px;
-        background-color: #ff5a1f;
-        border: 2px solid #0f1115;
+        content: ''; position: absolute; top: -4px; left: -4px; width: 8px; height: 8px; background-color: #ff5a1f;
     }
     .neobrutalist-content-card::after {
-        content: '';
-        position: absolute;
-        bottom: -6px;
-        right: -6px;
-        width: 10px;
-        height: 10px;
-        background-color: #ff5a1f;
-        border: 2px solid #0f1115;
+        content: ''; position: absolute; bottom: -4px; right: -4px; width: 8px; height: 8px; background-color: #ff5a1f;
     }
 
     /* Core Native Elements Typographical Configurations Overrides */
     h1 {
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
         font-size: 46px !important;
         font-weight: 900 !important;
-        color: #0f1115 !important;
+        color: #ffffff !important;
         letter-spacing: -1px !important;
         text-transform: uppercase !important;
         margin-top: 0px !important;
         margin-bottom: 12px !important;
     }
-    h2 { font-size: 24px !important; font-weight: 800 !important; color: #0f1115 !important; text-transform: uppercase !important; }
+    h2 { font-size: 24px !important; font-weight: 800 !important; color: #ffffff !important; text-transform: uppercase !important; }
     h3 { font-size: 13px !important; font-weight: 800 !important; color: #ff5a1f !important; text-transform: uppercase !important; letter-spacing: 3px !important; margin-bottom: 10px !important; }
-    .card-narrative-paragraph { font-size: 15.5px; line-height: 1.6; color: #555e72; margin-bottom: 25px; }
+    .card-narrative-paragraph { font-size: 15.5px; line-height: 1.6; color: #8fa0be; margin-bottom: 25px; }
 
     /* Premium Block Core Buttons Customization Layout */
     .stButton>button {
         background-color: #ff5a1f !important;
         color: #ffffff !important;
-        border: 2px solid #0f1115 !important;
+        border: 1px solid rgba(255, 90, 31, 0.5) !important;
         border-radius: 0px !important;
         padding: 15px 35px !important;
         font-size: 12.5px !important;
         font-weight: 900 !important;
         text-transform: uppercase !important;
         letter-spacing: 1.5px !important;
-        box-shadow: 4px 4px 0px #0f1115 !important;
-        transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        box-shadow: 0 4px 15px rgba(255, 90, 31, 0.25) !important;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .stButton>button:hover {
-        background-color: #0f1115 !important;
-        color: #ffffff !important;
-        transform: translate(2px, 2px) !important;
-        box-shadow: 2px 2px 0px #0f1115 !important;
-    }
-    .stButton>button:active {
-        transform: translate(4px, 4px) !important;
-        box-shadow: 0px 0px 0px #0f1115 !important;
+        background-color: #ffffff !important;
+        color: #0d0f14 !important;
+        border-color: #ffffff !important;
+        box-shadow: 0 0 25px rgba(255, 95, 31, 0.6) !important;
+        transform: translateY(-2px) !important;
     }
 
     /* Functional Processing Form Elements Styling Customization */
     .stTextArea textarea, .stTextInput input {
-        background-color: #ffffff !important;
-        color: #0f1115 !important;
-        border: 2px solid #0f1115 !important;
+        background-color: #161a24 !important;
+        color: #ffffff !important;
+        border: 1px solid rgba(255, 90, 31, 0.3) !important;
         border-radius: 0px !important;
         font-family: monospace !important;
         padding: 14px !important;
@@ -211,28 +197,31 @@ st.markdown("""
     }
     .stTextArea textarea:focus, .stTextInput input:focus {
         border-color: #ff5a1f !important;
-        box-shadow: none !important;
+        box-shadow: 0 0 10px rgba(ff, 5a, 1f, 0.3) !important;
     }
 
     /* High-End Dark Workspace Chat Logs Layout */
     .stChatMessage {
-        background-color: #171923 !important;
+        background-color: #161822 !important;
         color: #ffffff !important;
-        border: 2px solid #0f1115 !important;
-        border-radius: 0px !important;
+        border: 1px solid rgba(255, 90, 31, 0.2) !important;
+        border-radius: 4px !important;
         padding: 22px !important;
         margin-bottom: 15px !important;
-        box-shadow: 4px 4px 0px #0f1115 !important;
         animation: fluidPanelSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     /* Left Sidebar Global Panel Formats Intercept */
     section[data-testid="stSidebar"] {
-        background-color: #d8dbe2 !important;
-        border-right: 3px solid #0f1115 !important;
+        background-color: #090a0f !important;
+        border-right: 2px solid rgba(255, 90, 31, 0.3) !important;
+    }
+    section[data-testid="stSidebar"] .stRadio label p {
+        color: #8fa0be !important;
     }
     </style>
 """, unsafe_allow_html=True)
+
 # =============================================================================
 # 3. SECURE REPOSITORY BACKEND CLIENT INTEGRATIONS
 # =============================================================================
@@ -246,7 +235,6 @@ llm = ChatGroq(
 search = DuckDuckGoSearchRun()
 tools = [search]
 agent = create_react_agent(llm, tools)
-
 # =============================================================================
 # 4. APP SYSTEM RUNTIME ACCESS STATE GATEWAY
 # =============================================================================
@@ -271,7 +259,7 @@ if not st.session_state.app_unlocked:
     st.stop()
 
 # =============================================================================
-# 5. GLOBAL HORIZONTAL BRAND SYSTEM RIBBON NAVIGATION MOCK
+# 5. GLOBAL HORIZONTAL BRAND SYSTEM RIBBON NAVIGATION
 # =============================================================================
 st.markdown("""
     <div class="brand-navigation-ribbon">
@@ -281,17 +269,17 @@ st.markdown("""
         </div>
         <a style="
             display: inline-block;
-            background-color: #0f1115;
+            background-color: #ff5a1f;
             color: #ffffff !important;
             font-size: 11px;
             font-weight: 800;
             padding: 12px 24px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            border: 2px solid #0f1115;
+            border: none;
             border-radius: 0px;
             text-decoration: none !important;
-            box-shadow: 4px 4px 0px #ff5a1f;
+            box-shadow: 0 4px 15px rgba(255, 90, 31, 0.4);
             transition: all 0.2s ease;
         " href="https://github.io" target="_blank">🔗 VIEW PORTFOLIO</a>
     </div>
