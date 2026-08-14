@@ -364,7 +364,8 @@ Keep responses concise and practical."""
                 model="llama-3.3-70b-versatile",
                 messages=st.session_state.messages
             )
-        reply_string = response.choices.message.content
+        reply_string = response.choices[0].message.content
+
         st.session_state.messages.append({"role": "assistant", "content": reply_string})
         st.chat_message("assistant").write(reply_string)
 # B. AUTONOMOUS NETWORK SCRAPER SEARCH ENGINE MODULE
