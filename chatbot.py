@@ -21,11 +21,6 @@ st.markdown("""
         0% { opacity: 0; transform: translateY(25px); filter: blur(4px); }
         100% { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
-    @keyframes glowPulse {
-        0% { box-shadow: 0 0 15px rgba(255, 90, 31, 0.2); }
-        50% { box-shadow: 0 0 30px rgba(255, 90, 31, 0.5); border-color: #ff5a1f; }
-        100% { box-shadow: 0 0 15px rgba(255, 90, 31, 0.2); }
-    }
 
     /* Core Technical Blueprint Background Grid */
     .stApp {
@@ -67,50 +62,6 @@ st.markdown("""
         color: #60687d;
         letter-spacing: 0.5px;
         margin-bottom: 35px;
-    }
-
-    /* Futuristic Modular Robot Canvas Graphics Box */
-    .robot-graphic-box {
-        width: 190px;
-        height: 190px;
-        background-color: #edf0f4;
-        border: 2px solid #b8bfc9;
-        border-radius: 24px;
-        margin: 0 auto 40px auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        animation: glowPulse 3s infinite ease-in-out;
-    }
-    .robot-head-inner {
-        width: 140px;
-        height: 110px;
-        background-color: #ffffff;
-        border: 12px solid #0f1115;
-        border-radius: 36px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 24px;
-        position: relative;
-        box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
-    }
-    .robot-head-inner::before {
-        content: '';
-        position: absolute;
-        top: -24px;
-        width: 8px;
-        height: 16px;
-        background-color: #0f1115;
-        border-radius: 4px;
-    }
-    .robot-eye {
-        width: 18px;
-        height: 18px;
-        background-color: #00ffcc;
-        border-radius: 50%;
-        box-shadow: 0 0 10px #00ffcc;
     }
 
     /* Top Workspace Header Navigation Strip */
@@ -247,7 +198,7 @@ agent = create_react_agent(llm, tools)
 if "app_unlocked" not in st.session_state:
     st.session_state.app_unlocked = False
 
-# 5. ENTRY SYSTEM DASHBOARD OVERLAY
+# 5. ENTRY SYSTEM DASHBOARD OVERLAY WITH THE UPGRADED DESIGNER ROBOT VISOR
 if not st.session_state.app_unlocked:
     st.markdown("""
         <div class="landing-hero">
@@ -255,12 +206,72 @@ if not st.session_state.app_unlocked:
             <div class="landing-title">KUBOOM CHATBOT</div>
             <div class="landing-subtitle">A chatbot made by Rohit</div>
             
-            <!-- Exact Robot Mechanical Face Vector Simulation Box -->
-            <div class="robot-graphic-box">
-                <div class="robot-head-inner">
-                    <div class="robot-eye"></div>
-                    <div class="robot-eye"></div>
+            <!-- Upgraded Designer Robot Vector Canvas Graphic -->
+            <div style="
+                width: 260px;
+                height: 260px;
+                background-color: #ffffff;
+                border: 1px solid #b8bfc9;
+                border-radius: 8px;
+                margin: 0 auto 40px auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            ">
+                <div style="
+                    position: absolute;
+                    bottom: 0;
+                    width: 120px;
+                    height: 35px;
+                    background-color: #ccd2db;
+                    border: 1px solid #b8bfc9;
+                    border-radius: 4px 4px 0 0;
+                "></div>
+                <div style="
+                    width: 170px;
+                    height: 170px;
+                    background-color: #ffffff;
+                    border: 1px solid #b8bfc9;
+                    border-radius: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    z-index: 2;
+                ">
+                    <div style="
+                        position: absolute;
+                        top: 6px;
+                        left: 6px;
+                        right: 6px;
+                        bottom: 6px;
+                        border: 10px solid #ff5a1f;
+                        border-radius: 34px;
+                        box-shadow: 0 0 20px rgba(255, 90, 31, 0.6), inset 0 0 15px rgba(255, 90, 31, 0.4);
+                    "></div>
+                    <div style="
+                        width: 110px;
+                        height: 110px;
+                        background-color: #1a1d24;
+                        background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 0);
+                        background-size: 8px 8px;
+                        border-radius: 24px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 22px;
+                        position: relative;
+                        z-index: 3;
+                        box-shadow: inset 0 4px 10px rgba(0,0,0,0.8);
+                    ">
+                        <div style="width: 14px; height: 14px; background-color: #ffffff; border-radius: 50%; box-shadow: 0 0 14px #ffffff, 0 0 25px rgba(255,255,255,0.8);"></div>
+                        <div style="width: 14px; height: 14px; background-color: #ffffff; border-radius: 50%; box-shadow: 0 0 14px #ffffff, 0 0 25px rgba(255,255,255,0.8);"></div>
+                    </div>
                 </div>
+                <div style="position: absolute; left: 33px; top: 115px; width: 16px; height: 32px; background-color: #b8bfc9; border-radius: 4px 0 0 4px;"></div>
+                <div style="position: absolute; right: 33px; top: 115px; width: 16px; height: 32px; background-color: #b8bfc9; border-radius: 0 4px 4px 0;"></div>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -271,7 +282,6 @@ if not st.session_state.app_unlocked:
             st.session_state.app_unlocked = True
             st.rerun()
     st.stop()
-
 # 6. APPLICATION SYSTEM NAVIGATION BANNER
 st.markdown("""
     <div class="brand-top-nav">
@@ -295,6 +305,7 @@ page = st.sidebar.radio("CHOOSE MODULE:", [
 ])
 st.sidebar.markdown("---")
 st.sidebar.markdown("<div style='font-size:11px; color:#60687d;'>COMPILED BY ROHIT • METAMATRIX ENGINE</div>", unsafe_allow_html=True)
+
 # 8. WORKSPACE CONTROL ROUTINES
 if page == "💬 Chat":
     st.markdown("""
@@ -314,7 +325,7 @@ Keep responses concise and practical."""
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": system_prompt}]
 
-    col_space, col_reset = st.columns([4, 1])  # FIXED: Explicit configuration lengths passed here
+    col_space, col_reset = st.columns([4, 1])  # Explicit sizing configurations passed to avoid layout leaks
     with col_reset:
         if st.button("🗑️ PURGE BUFFER LOGS"):
             st.session_state.messages = [{"role": "system", "content": system_prompt}]
@@ -336,7 +347,6 @@ Keep responses concise and practical."""
         reply = response.choices.message.content
         st.session_state.messages.append({"role": "assistant", "content": reply})
         st.chat_message("assistant").write(reply)
-
 elif page == "🔍 Web Search Agent":
     st.markdown("""
         <div class="chaingpt-panel">
