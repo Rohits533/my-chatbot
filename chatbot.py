@@ -6,42 +6,70 @@ from langgraph.prebuilt import create_react_agent
 import PyPDF2
 import io
 
-# 1. EXPAND WEB WINDOW SCREEN SPACE 
+# 1. PAGE SETUP
 st.set_page_config(
     page_title="Rohit's AI Assistant",
     page_icon="🤖",
     layout="wide"
 )
 
-# 2. INJECT EXACT CHAINGPT LABS WEB COMPONENT LAYOUT STYLES WITH ANIMATION 
+# 2. INJECT CHAINGPT STYLE LIGHT TECHNICAL-GRID UI & ENTRY ANIMS
 st.markdown("""
     <style>
-    /* Smooth Cascading Fluid Entry Animation */
+    /* Entry Animations */
     @keyframes techFadeIn {
-        0% { opacity: 0; transform: translateY(12px); filter: blur(2px); }
+        0% { opacity: 0; transform: translateY(20px); filter: blur(5px); }
         100% { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
-
-    /* Core Application Background Palette Override */
-    .stApp {
-        background-color: #090a10 !important;
-        background-image: 
-            linear-gradient(to right, #141622 1px, transparent 1px),
-            linear-gradient(to bottom, #141622 1px, transparent 1px) !important;
-        background-size: 60px 60px !important;
-        color: #e2e8f0 !important;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    @keyframes gridPulse {
+        0% { opacity: 0.3; }
+        50% { opacity: 0.6; }
+        100% { opacity: 0.3; }
     }
 
-    /* Top Horizontal Corporate Navigation Ribbon */
+    /* ChainGPT Light Tech Theme Background */
+    .stApp {
+        background-color: #e6e8eb !important;
+        background-image: 
+            linear-gradient(to right, #d0d4dc 1px, transparent 1px),
+            linear-gradient(to bottom, #d0d4dc 1px, transparent 1px) !important;
+        background-size: 80px 80px !important;
+        color: #0f1115 !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    }
+
+    /* Welcome Landing Wrapper */
+    .welcome-container {
+        text-align: center;
+        margin-top: 10vh;
+        animation: techFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .welcome-subtitle {
+        font-size: 14px;
+        font-weight: 700;
+        color: #ff5a1f;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+    .welcome-title {
+        font-size: 72px;
+        font-weight: 900;
+        color: #0f1115;
+        letter-spacing: -2px;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+
+    /* ChainGPT Premium Top Header Bar */
     .brand-top-nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 18px 40px;
-        background-color: #090a10;
-        border-bottom: 1px solid #1c1e2e;
-        margin-bottom: 30px;
+        padding: 15px 40px;
+        background-color: #e6e8eb;
+        border-bottom: 1px solid #c2c8d4;
+        margin-bottom: 0px;
         animation: techFadeIn 0.5s ease-out forwards;
     }
     .brand-logo-wrap {
@@ -53,164 +81,118 @@ st.markdown("""
         width: 14px;
         height: 14px;
         background-color: #ff5a1f;
-        border-radius: 2px;
     }
     .brand-logo-text {
         font-size: 16px;
-        font-weight: 800;
-        letter-spacing: 1.5px;
-        color: #ffffff;
-        text-transform: uppercase;
-    }
-    .brand-logo-text span {
-        color: #ff5a1f;
+        font-weight: 900;
+        letter-spacing: 1px;
+        color: #0f1115;
     }
     .brand-menu-links {
         display: flex;
-        gap: 28px;
+        gap: 30px;
         font-size: 13px;
-        color: #727b98;
-        font-weight: 500;
-    }
-    .brand-menu-links div:hover {
-        color: #ffffff;
-        cursor: pointer;
+        color: #60687d;
+        font-weight: 600;
     }
     .brand-cta-pill {
         background-color: #ff5a1f;
         color: #ffffff;
         font-size: 11px;
         font-weight: 700;
-        padding: 8px 18px;
-        border-radius: 4px;
+        padding: 8px 20px;
         text-transform: uppercase;
         letter-spacing: 1px;
+        border-radius: 4px;
     }
 
-    /* Neo-Brutalist Technical Mechanical Wireframe Content Panels */
-    .chaingpt-card {
-        background-color: #0d0f18 !important;
-        border: 1px solid #1c1e2e !important;
-        border-radius: 0px !important;
+    /* Architectural Block Content Containers */
+    .chaingpt-panel {
+        background-color: #edf0f4 !important;
+        border: 1px solid #b8bfc9 !important;
         padding: 35px !important;
         margin-bottom: 25px !important;
         position: relative;
         animation: techFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    
-    /* Technical Grid Align Corner Node Markers */
-    .chaingpt-card::before {
+    /* Technical Grid Corner Crosshair Marks */
+    .chaingpt-panel::before {
         content: '';
         position: absolute;
-        top: -1px;
-        left: -1px;
+        top: -3px;
+        left: -3px;
         width: 6px;
         height: 6px;
-        border-top: 2px solid #ff5a1f;
-        border-left: 2px solid #ff5a1f;
+        background-color: #ff5a1f;
     }
-    .chaingpt-card::after {
+    .chaingpt-panel::after {
         content: '';
         position: absolute;
-        bottom: -1px;
-        right: -1px;
+        bottom: -3px;
+        right: -3px;
         width: 6px;
         height: 6px;
-        border-bottom: 2px solid #ff5a1f;
-        border-right: 2px solid #ff5a1f;
+        background-color: #ff5a1f;
     }
 
-    /* Headers and Content Formatting */
+    /* Headings inside workspace panels */
     h1 {
-        font-size: 42px !important;
+        font-size: 40px !important;
         font-weight: 900 !important;
-        color: #ffffff !important;
+        color: #0f1115 !important;
         letter-spacing: -1px !important;
         text-transform: uppercase !important;
-        margin: 0 0 15px 0 !important;
+        margin: 0 0 10px 0 !important;
     }
     h3 {
-        font-size: 14px !important;
+        font-size: 13px !important;
         font-weight: 700 !important;
         color: #ff5a1f !important;
         text-transform: uppercase !important;
-        letter-spacing: 1.5px !important;
-        margin-bottom: 12px !important;
+        letter-spacing: 2px !important;
+        margin-bottom: 10px !important;
     }
-    .card-paragraph {
+    .panel-desc {
         font-size: 15px;
-        line-height: 1.6;
-        color: #727b98;
-        max-width: 550px;
-        margin-bottom: 25px;
+        color: #60687d;
+        margin-bottom: 20px;
     }
 
-    /* Core Native Action Controls Customization Styling overrides */
+    /* Universal Buttons styled exactly like Orange Web3 CTAs */
     .stButton>button {
         background-color: #ff5a1f !important;
         color: #ffffff !important;
         border: none !important;
         border-radius: 4px !important;
-        padding: 12px 28px !important;
-        font-size: 12px !important;
+        padding: 14px 32px !important;
+        font-size: 13px !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
         letter-spacing: 1px !important;
         transition: all 0.2s ease !important;
-        box-shadow: 0 4px 12px rgba(255, 90, 31, 0.2);
     }
     .stButton>button:hover {
         background-color: #e04a15 !important;
-        transform: translateY(-1px);
-        box-shadow: 0 6px 16px rgba(255, 90, 31, 0.35);
+        transform: scale(1.02);
     }
 
-    /* Chat Log Formatting Overrides */
-    .stChatMessage {
-        background-color: #0d0f18 !important;
-        border: 1px solid #1c1e2e !important;
-        border-radius: 4px !important;
-        padding: 16px !important;
-        margin-bottom: 12px !important;
-    }
-
-    /* User form standard entry boxes styling adjustment */
+    /* Input Controls Adjustment */
     .stTextArea textarea, .stTextInput input {
-        background-color: #090a10 !important;
-        color: #ffffff !important;
-        border: 1px solid #1c1e2e !important;
+        background-color: #ffffff !important;
+        color: #0f1115 !important;
+        border: 1px solid #b8bfc9 !important;
         border-radius: 4px !important;
     }
-    .stTextArea textarea:focus, .stTextInput input:focus {
-        border-color: #ff5a1f !important;
-    }
 
-    /* Left Sidebar Menu Framework Overrides */
+    /* Navigation Sidebar Adjustments */
     section[data-testid="stSidebar"] {
-        background-color: #06070b !important;
-        border-right: 1px solid #141622 !important;
+        background-color: #e1e4e9 !important;
+        border-right: 1px solid #b8bfc9 !important;
     }
     </style>
-
-    <!-- Top Static ChainGPT Navigation Shell Mockup -->
-    <div class="brand-top-nav">
-        <div class="brand-logo-wrap">
-            <div class="brand-orange-cube"></div>
-            <div class="brand-logo-text">ROHIT LABS<span>//</span>AI</div>
-        </div>
-        <div class="brand-menu-links">
-            <div>Our Programs</div>
-            <div>Portfolio</div>
-            <div>Media</div>
-            <div>Reviews</div>
-            <div>Team</div>
-            <div>FAQ</div>
-        </div>
-        <div class="brand-cta-pill">Apply Now</div>
-    </div>
 """, unsafe_allow_html=True)
 
-# 3. CONVERT ACTIVE ENVIRONMENT CONNECTIONS
+# 3. INITIALIZE API BACKEND SYSTEMS
 api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
 
@@ -222,9 +204,44 @@ search = DuckDuckGoSearchRun()
 tools = [search]
 agent = create_react_agent(llm, tools)
 
-# 4. SIDEBAR SELECTION SYSTEM
-st.sidebar.markdown("<h3 style='margin-top:10px;'>🧭 MODULE DIRECTORY</h3>", unsafe_allow_html=True)
-page = st.sidebar.radio("CHOOSE INSTANCE:", [
+# 4. INITIALIZE SESSION FLOW CONTROL KEYS
+if "app_unlocked" not in st.session_state:
+    st.session_state.app_unlocked = False
+
+# 5. RENDER SYSTEM GATEWAY (LANDING PAGE)
+if not st.session_state.app_unlocked:
+    st.markdown("""
+        <div class="welcome-container">
+            <div class="welcome-subtitle">BACKING THE NEXT WAVE OF VISIONARIES</div>
+            <div class="welcome-title">WELCOME TO<br>ROHIT'S CHATBOT</div>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    col_l, col_btn, col_r = st.columns([2, 1, 2])
+    with col_btn:
+        if st.button("ENTER CHATBOT SYSTEM 🚀", use_container_width=True):
+            st.session_state.app_unlocked = True
+            st.rerun()
+    st.stop()
+
+# 6. HEADER DEPLOYMENT (ONCE UNLOCKED)
+st.markdown("""
+    <div class="brand-top-nav">
+        <div class="brand-logo-wrap">
+            <div class="brand-orange-cube"></div>
+            <div class="brand-logo-text">CHAINGPT LABS // ROHIT</div>
+        </div>
+        <div class="brand-menu-links">
+            <div>Our Programs</div><div>Portfolio</div><div>Media</div><div>Reviews</div><div>Team</div><div>FAQ</div>
+        </div>
+        <div class="brand-cta-pill">APPLY NOW</div>
+    </div>
+    <div style="margin-bottom: 30px;"></div>
+""", unsafe_allow_html=True)
+
+# 7. SIDEBAR SYSTEM NAVIGATION
+st.sidebar.markdown("<h3 style='margin-top:10px;'>⚙️ CORE CORE INSTANCES</h3>", unsafe_allow_html=True)
+page = st.sidebar.radio("CHOOSE MODULE:", [
     "💬 Chat",
     "🔍 Web Search Agent",
     "💻 Code Explainer",
@@ -232,14 +249,14 @@ page = st.sidebar.radio("CHOOSE INSTANCE:", [
     "📄 PDF Reader"
 ])
 st.sidebar.markdown("---")
-st.sidebar.markdown("<div style='font-size:11px; color:#4a4f66;'>BUILT BY ROHIT • RUNNING LLAMA COMPILER</div>", unsafe_allow_html=True)
-# 5. RENDER APPLICATION INTERFACE TARGET LOGIC
+st.sidebar.markdown("<div style='font-size:11px; color:#60687d;'>POWERED BY LLAMA COMPILER ENGINE</div>", unsafe_allow_html=True)
+# 8. RENDER CORE CHAT SERVICES
 if page == "💬 Chat":
     st.markdown("""
-        <div class="chaingpt-card">
-            <h3>BACKING THE FUTURE</h3>
-            <h1>AI CHAT COMPANION</h1>
-            <div class="card-paragraph">Your personal decentralized space for technical study, rapid conceptual brainstorming, structural engineering updates, and direct curriculum navigation.</div>
+        <div class="chaingpt-panel">
+            <h3>BACKING THE VERY BEST BUILDERS</h3>
+            <h1>💬 CORE CHAT SERVICES</h1>
+            <div class="panel-desc">Transforming complex computing parameters into precise conversational study guides.</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -252,22 +269,21 @@ Keep responses concise and practical."""
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": system_prompt}]
 
-    col_empty, col_action = st.columns([5, 1])
-    with col_action:
-        if st.button("🪹 WIPE STORAGE"):
+    col_space, col_reset = st.columns([5, 1])
+    with col_reset:
+        if st.button("🗑️ PURGE LOGS"):
             st.session_state.messages = [{"role": "system", "content": system_prompt}]
             st.rerun()
 
-    # Chat context box
     for msg in st.session_state.messages:
         if msg["role"] != "system":
             st.chat_message(msg["role"]).write(msg["content"])
 
-    user_input = st.chat_input("Enter conversational string payload...")
+    user_input = st.chat_input("Ask me anything or supply execution parameters...")
     if user_input:
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.chat_message("user").write(user_input)
-        with st.spinner("Compiling Token Sequence..."):
+        with st.spinner("Processing Matrix Data Block..."):
             response = client.chat.completions.create(
                 model="llama-3.3-70b-versatile",
                 messages=st.session_state.messages
@@ -278,10 +294,10 @@ Keep responses concise and practical."""
 
 elif page == "🔍 Web Search Agent":
     st.markdown("""
-        <div class="chaingpt-card">
-            <h3>REALTIME DATA PARSING</h3>
-            <h1>WEB SEARCH AGENT</h1>
-            <div class="card-paragraph">Advanced scraping intelligence tracking live parameters across open networks to extract real-time web infrastructure records instantly.</div>
+        <div class="chaingpt-panel">
+            <h3>REAL-TIME DISCOVERY NODES</h3>
+            <h1>🔍 WEB SEARCH AGENT</h1>
+            <div class="panel-desc">Scrapes external indexing arrays to return synchronized real-time web solutions.</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -291,11 +307,11 @@ elif page == "🔍 Web Search Agent":
     for msg in st.session_state.search_messages:
         st.chat_message(msg["role"]).write(msg["content"])
 
-    search_input = st.chat_input("Input live target network search query parameter...")
+    search_input = st.chat_input("Enter live network scrap search parameters...")
     if search_input:
         st.session_state.search_messages.append({"role": "user", "content": search_input})
         st.chat_message("user").write(search_input)
-        with st.spinner("Executing Network Crawl Nodes..."):
+        with st.spinner("Running Network Queries..."):
             response = agent.invoke({"messages": [{"role": "user", "content": search_input}]})
             reply = response["messages"][-1].content
         st.session_state.search_messages.append({"role": "assistant", "content": reply})
@@ -303,26 +319,26 @@ elif page == "🔍 Web Search Agent":
 
 elif page == "💻 Code Explainer":
     st.markdown("""
-        <div class="chaingpt-card">
-            <h3>OPTIMIZATION RUNTIME</h3>
-            <h1>CODE DECONSTRUCTION</h1>
-            <div class="card-paragraph">Submit script telemetry algorithms for step-by-step logic tracing, algorithmic optimization, and system syntax auditing.</div>
+        <div class="chaingpt-panel">
+            <h3>RUNTIME LOGIC COMPILER</h3>
+            <h1>💻 CODE DECONSTRUCTION</h1>
+            <div class="panel-desc">Paste script elements to audit logic architecture, syntax bugs, or receive refactors.</div>
         </div>
     """, unsafe_allow_html=True)
 
-    code_input = st.text_area("Source Code Array Buffer Input:", height=220, placeholder="def active_matrix():\n    print('Grid Operational')")
+    code_input = st.text_area("Source Code Array Buffer Input:", height=200, placeholder="def compute():\n    return 'Grid Verified'")
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        explain = st.button("📖 EXPLAIN LOGIC")
+        explain = st.button("📖 DECONSTRUCT LOGIC")
     with col2:
-        debug = st.button("🐛 AUDIT EXCEPTIONS")
+        debug = st.button("🐛 IDENTIFY EXCEPTIONS")
     with col3:
-        improve = st.button("⚡ REFACTOR SCRIPT")
+        improve = st.button("⚡ ACCELERATE PERFORMANCE")
 
     if code_input:
         if explain:
-            with st.spinner("Parsing Function Stack..."):
+            with st.spinner("Analyzing Stack..."):
                 response = client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     messages=[
@@ -330,11 +346,11 @@ elif page == "💻 Code Explainer":
                         {"role": "user", "content": f"Explain this code step by step:\n\n{code_input}"}
                     ]
                 )
-            st.markdown('<h3>📖 ANALYSIS BREAKDOWN</h3>', unsafe_allow_html=True)
+            st.markdown('<h3>📖 LOGIC MAP BREAKDOWN</h3>', unsafe_allow_html=True)
             st.write(response.choices[0].message.content)
 
         if debug:
-            with st.spinner("Analyzing Stack Overflows..."):
+            with st.spinner("Compiling Array..."):
                 response = client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     messages=[
@@ -342,11 +358,11 @@ elif page == "💻 Code Explainer":
                         {"role": "user", "content": f"Find any bugs or errors in this code:\n\n{code_input}"}
                     ]
                 )
-            st.markdown('<h3>🐛 SYNTAX TRACKER ERROR DIAGNOSTICS</h3>', unsafe_allow_html=True)
+            st.markdown('<h3>🐛 SYNTAX EXCEPTIONS ENCOUNTERED</h3>', unsafe_allow_html=True)
             st.write(response.choices[0].message.content)
 
         if improve:
-            with st.spinner("Computing Compute Complexities..."):
+            with st.spinner("Refactoring Telemetry..."):
                 response = client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     messages=[
@@ -354,23 +370,24 @@ elif page == "💻 Code Explainer":
                         {"role": "user", "content": f"Suggest improvements for this code:\n\n{code_input}"}
                     ]
                 )
-            st.markdown('<h3>⚡ PROPOSED OPTIMIZATION REFACTORS</h3>', unsafe_allow_html=True)
+            st.markdown('<h3>⚡ PROPOSED SYSTEM OPTIMIZATIONS</h3>', unsafe_allow_html=True)
             st.write(response.choices[0].message.content)
+
 elif page == "📝 Quiz Generator":
     st.markdown("""
-        <div class="chaingpt-card">
-            <h3>TRANSFORMING KNOWLEDGE</h3>
-            <h1>EVALUATION GENERATOR</h1>
-            <div class="card-paragraph">Synthesize highly structured Multiple Choice training frameworks directly from plain instructional topic domains.</div>
+        <div class="chaingpt-panel">
+            <h3>COMPILING COMPREHENSION METRICS</h3>
+            <h1>📝 ASSESSMENT NODE</h1>
+            <div class="panel-desc">Convert raw topic arrays into tailored evaluation multiple choice training banks.</div>
         </div>
     """, unsafe_allow_html=True)
 
-    topic = st.text_input("Enter Target Skill Domain Framework:", placeholder="e.g., Backpropagation Calculus, Graph Databases")
-    num_questions = st.slider("Quantity of Target Evaluation Nodes:", 3, 10, 5)
+    topic = st.text_input("Enter Evaluation Focus Sub-Branch Topic:", placeholder="e.g. Backpropagation Math")
+    num_questions = st.slider("Quantity of Target Examination Nodes:", 3, 10, 5)
 
-    if st.button("🎯 SYNTHESIZE ASSESSMENT MATRIX"):
+    if st.button("🎯 SYNTHESIZE ASSESSMENT SCHEMATIC"):
         if topic:
-            with st.spinner("Generating Target Quiz Objects..."):
+            with st.spinner("Formulating Training Objects..."):
                 response = client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     messages=[
@@ -378,17 +395,17 @@ elif page == "📝 Quiz Generator":
                         {"role": "user", "content": f"Generate {num_questions} MCQ questions about {topic}. Format each question with 4 options (A, B, C, D) and mark the correct answer at the end."}
                     ]
                 )
-            st.markdown('<h3>🎯 TARGET TRAINING EVALUATION SCHEMATICS</h3>', unsafe_allow_html=True)
+            st.markdown('<h3>🎯 GENERATED TRAINING OBJECT FRAMEWORKS</h3>', unsafe_allow_html=True)
             st.write(response.choices[0].message.content)
         else:
-            st.warning("Missing Configuration Parameter: Please declare evaluation target branch.")
+            st.warning("Variable Declaration Missing: Enter a topic input first.")
 
 elif page == "📄 PDF Reader":
     st.markdown("""
-        <div class="chaingpt-card">
-            <h3>DOCUMENT RECONSTRUCTION</h3>
-            <h1>STRUCTURAL FILE PARSER</h1>
-            <div class="card-paragraph">Upload complex analytic data payloads or technical blueprints to query underlying context datasets immediately.</div>
+        <div class="chaingpt-panel">
+            <h3>STRUCTURAL INDEX ANALYSIS</h3>
+            <h1>📄 STRUCTURAL FILE PARSER</h1>
+            <div class="panel-desc">Process heavy layout documentation blueprints to inspect underlying data context sheets.</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -398,7 +415,7 @@ elif page == "📄 PDF Reader":
         pdf_reader = PyPDF2.PdfReader(io.BytesIO(uploaded_file.read()))
         for page_num in pdf_reader.pages:
             pdf_text += page_num.extract_text()
-        st.success("Configuration Matrix Verified: Target Context Content Synced.")
+        st.success("Target Content Dataset Synchronized Successfully.")
 
     if "pdf_messages" not in st.session_state:
         st.session_state.pdf_messages = []
@@ -406,14 +423,14 @@ elif page == "📄 PDF Reader":
     for msg in st.session_state.pdf_messages:
         st.chat_message(msg["role"]).write(msg["content"])
 
-    pdf_input = st.chat_input("Query structural document parameters here...")
+    pdf_input = st.chat_input("Query structural document fields...")
     if pdf_input:
         st.session_state.pdf_messages.append({"role": "user", "content": pdf_input})
         st.chat_message("user").write(pdf_input)
         
         context_block = pdf_text if pdf_text else "No specific context dataset available."
         
-        with st.spinner("Running Semantic Context Analysis..."):
+        with st.spinner("Extracting Semantic Node Elements..."):
             response = client.chat.completions.create(
                 model="llama-3.3-70b-versatile",
                 messages=[
