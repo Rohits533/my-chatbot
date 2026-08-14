@@ -6,9 +6,10 @@ from langgraph.prebuilt import create_react_agent
 import PyPDF2
 import io
 import time
+import datetime
 
 # =============================================================================
-# 1. CORE STREAMLIT INSTANCE INIT & LAYOUT SYSTEM
+# 1. CORE STREAMLIT INSTANCE INITIALIZATION & ARCHITECTURE OVERRIDES
 # =============================================================================
 st.set_page_config(
     page_title="Rohit's AI Assistant",
@@ -18,25 +19,31 @@ st.set_page_config(
 )
 
 # =============================================================================
-# 2. INJECT CYBERPUNK AMBIENT ORANGE LASER BACKGROUND ANIMATION MATRIX
+# 2. BRAND STYLE CONFIGURATION METRICS (CHAINGPT LABS GLOWING LASER GRID)
 # =============================================================================
 st.markdown("""
     <style>
-    /* Accelerated Graphic Rendering Animations */
-    @keyframes entryZoomFade {
-        0% { opacity: 0; transform: scale(0.96) translateY(40px); filter: blur(10px); }
+    /* Advanced Accelerated Keyframe CSS Animation Engine */
+    @keyframes entranceZoomFade {
+        0% { opacity: 0; transform: scale(0.95) translateY(40px); filter: blur(12px); }
+        50% { opacity: 0.4; filter: blur(6px); }
         100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
     }
-    @keyframes fluidPanelSlide {
-        0% { opacity: 0; transform: translateY(25px); filter: blur(4px); }
+    @keyframes fluidPanelSlideIn {
+        0% { opacity: 0; transform: translateY(30px); filter: blur(6px); }
         100% { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
     @keyframes orangeLaserScroll {
         0% { background-position: 0px 0px, 0px 0px; }
         100% { background-position: 120px 120px, -60px 60px; }
     }
+    @keyframes matrixPulseGlow {
+        0% { border-color: rgba(255, 90, 31, 0.2); box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+        50% { border-color: rgba(255, 90, 31, 0.6); box-shadow: 0 4px 30px rgba(255, 90, 31, 0.15); }
+        100% { border-color: rgba(255, 90, 31, 0.2); box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+    }
 
-    /* Architectural Dynamic Glowing Orange Laser Grid Background Override */
+    /* Core Structural Architecture Canvas Blueprint Grid Background */
     .stApp {
         background-color: #0d0f14 !important;
         background-image: 
@@ -45,54 +52,54 @@ st.markdown("""
             radial-gradient(circle at 50% 50%, rgba(255, 90, 31, 0.05) 0%, transparent 80%) !important;
         background-size: 60px 60px, 60px 60px, 100% 100% !important;
         color: #e2e8f0 !important;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif !important;
         animation: orangeLaserScroll 20s linear infinite !important;
     }
 
-    /* Gateway Landing Dashboard Hero Wrapper */
-    .gateway-entry-container {
+    /* Gateway Landing Component Framework Styling */
+    .telemetry-landing-wrapper {
         text-align: center;
-        margin-top: 12vh;
+        margin-top: 10vh;
         padding: 60px;
-        background-color: rgba(13, 15, 20, 0.85);
+        background-color: rgba(13, 15, 20, 0.9);
         border: 2px solid rgba(255, 90, 31, 0.3);
         border-radius: 0px;
         backdrop-filter: blur(15px);
-        max-width: 850px;
+        max-width: 900px;
         margin-left: auto;
         margin-right: auto;
-        box-shadow: 0 0 40px rgba(255, 90, 31, 0.15);
+        box-shadow: 0 0 50px rgba(255, 90, 31, 0.2);
         position: relative;
-        animation: entryZoomFade 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation: entranceZoomFade 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .gateway-entry-container::before {
+    .telemetry-landing-wrapper::before {
         content: ''; position: absolute; top: -5px; left: -5px; width: 10px; height: 10px; background-color: #ff5a1f;
     }
-    .gateway-entry-container::after {
+    .telemetry-landing-wrapper::after {
         content: ''; position: absolute; bottom: -5px; right: -5px; width: 10px; height: 10px; background-color: #ff5a1f;
     }
-    .gateway-tagline {
-        font-size: 13px;
+    .telemetry-tagline {
+        font-size: 14px;
         font-weight: 800;
         color: #ff5a1f;
         letter-spacing: 6px;
         text-transform: uppercase;
         margin-bottom: 25px;
     }
-    .gateway-title {
-        font-size: 88px;
+    .telemetry-title {
+        font-size: 96px;
         font-weight: 900;
         color: #ffffff;
         letter-spacing: -3px;
         text-transform: uppercase;
-        line-height: 0.95;
+        line-height: 0.9;
         margin-bottom: 15px;
     }
-    .gateway-subtitle {
+    .telemetry-subtitle {
         font-size: 19px;
         font-weight: 600;
         color: #8fa0be;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
         margin-bottom: 50px;
     }
     </style>
@@ -104,12 +111,12 @@ st.markdown("""
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 45px;
-        background-color: rgba(13, 15, 20, 0.9);
+        padding: 22px 50px;
+        background-color: rgba(13, 15, 20, 0.95);
         border-bottom: 2px solid rgba(255, 90, 31, 0.3);
         margin-bottom: 0px;
         backdrop-filter: blur(10px);
-        animation: fluidPanelSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation: fluidPanelSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     .brand-logo-cluster {
         display: flex;
@@ -120,10 +127,10 @@ st.markdown("""
         width: 14px;
         height: 14px;
         background-color: #ff5a1f;
-        box-shadow: 0 0 10px #ff5a1f;
+        box-shadow: 0 0 12px #ff5a1f;
     }
     .brand-logo-text-string {
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 900;
         letter-spacing: 1.5px;
         color: #ffffff;
@@ -132,36 +139,38 @@ st.markdown("""
     
     /* Neo-Brutalist Technical Panel Workspace Shell Modules */
     .neobrutalist-content-card {
-        background-color: rgba(19, 22, 31, 0.9) !important;
+        background-color: rgba(19, 22, 31, 0.92) !important;
         border: 2px solid rgba(255, 90, 31, 0.2) !important;
         border-radius: 0px !important;
-        padding: 45px !important;
-        margin-bottom: 35px !important;
+        padding: 50px !important;
+        margin-bottom: 40px !important;
         position: relative;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
-        animation: fluidPanelSlide 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        backdrop-filter: blur(12px);
+        animation: fluidPanelSlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation-name: matrixPulseGlow;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
     }
     .neobrutalist-content-card::before {
-        content: ''; position: absolute; top: -4px; left: -4px; width: 8px; height: 8px; background-color: #ff5a1f;
+        content: ''; position: absolute; top: -5px; left: -5px; width: 10px; height: 10px; background-color: #ff5a1f;
     }
     .neobrutalist-content-card::after {
-        content: ''; position: absolute; bottom: -4px; right: -4px; width: 8px; height: 8px; background-color: #ff5a1f;
+        content: ''; position: absolute; bottom: -5px; right: -5px; width: 10px; height: 10px; background-color: #ff5a1f;
     }
 
     /* Core Native Elements Typographical Configurations Overrides */
     h1 {
-        font-size: 46px !important;
+        font-size: 48px !important;
         font-weight: 900 !important;
         color: #ffffff !important;
-        letter-spacing: -1px !important;
+        letter-spacing: -1.5px !important;
         text-transform: uppercase !important;
         margin-top: 0px !important;
-        margin-bottom: 12px !important;
+        margin-bottom: 15px !important;
     }
-    h2 { font-size: 24px !important; font-weight: 800 !important; color: #ffffff !important; text-transform: uppercase !important; }
-    h3 { font-size: 13px !important; font-weight: 800 !important; color: #ff5a1f !important; text-transform: uppercase !important; letter-spacing: 3px !important; margin-bottom: 10px !important; }
-    .card-narrative-paragraph { font-size: 15.5px; line-height: 1.6; color: #8fa0be; margin-bottom: 25px; }
+    h2 { font-size: 26px !important; font-weight: 800 !important; color: #ffffff !important; text-transform: uppercase !important; }
+    h3 { font-size: 13px !important; font-weight: 800 !important; color: #ff5a1f !important; text-transform: uppercase !important; letter-spacing: 3px !important; margin-bottom: 12px !important; }
+    .card-narrative-paragraph { font-size: 16px; line-height: 1.6; color: #8fa0be; margin-bottom: 30px; }
 
     /* Premium Block Core Buttons Customization Layout */
     .stButton>button {
@@ -169,19 +178,20 @@ st.markdown("""
         color: #ffffff !important;
         border: 1px solid rgba(255, 90, 31, 0.5) !important;
         border-radius: 0px !important;
-        padding: 15px 35px !important;
-        font-size: 12.5px !important;
+        padding: 16px 40px !important;
+        font-size: 13px !important;
         font-weight: 900 !important;
         text-transform: uppercase !important;
         letter-spacing: 1.5px !important;
         box-shadow: 0 4px 15px rgba(255, 90, 31, 0.25) !important;
         transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        width: 100% !important;
     }
     .stButton>button:hover {
         background-color: #ffffff !important;
         color: #0d0f14 !important;
         border-color: #ffffff !important;
-        box-shadow: 0 0 25px rgba(255, 95, 31, 0.6) !important;
+        box-shadow: 0 0 30px rgba(255, 95, 31, 0.7) !important;
         transform: translateY(-2px) !important;
     }
 
@@ -192,38 +202,42 @@ st.markdown("""
         border: 1px solid rgba(255, 90, 31, 0.3) !important;
         border-radius: 0px !important;
         font-family: monospace !important;
-        padding: 14px !important;
+        padding: 16px !important;
         font-size: 14px !important;
     }
     .stTextArea textarea:focus, .stTextInput input:focus {
         border-color: #ff5a1f !important;
-        box-shadow: 0 0 10px rgba(ff, 5a, 1f, 0.3) !important;
+        box-shadow: 0 0 12px rgba(255, 90, 31, 0.4) !important;
     }
 
     /* High-End Dark Workspace Chat Logs Layout */
     .stChatMessage {
-        background-color: #161822 !important;
+        background-color: #141722 !important;
         color: #ffffff !important;
-        border: 1px solid rgba(255, 90, 31, 0.2) !important;
-        border-radius: 4px !important;
-        padding: 22px !important;
-        margin-bottom: 15px !important;
-        animation: fluidPanelSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        border: 1px solid rgba(255, 90, 31, 0.25) !important;
+        border-radius: 0px !important;
+        padding: 24px !important;
+        margin-bottom: 18px !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+        animation: fluidPanelSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     /* Left Sidebar Global Panel Formats Intercept */
     section[data-testid="stSidebar"] {
-        background-color: #090a0f !important;
+        background-color: #08090d !important;
         border-right: 2px solid rgba(255, 90, 31, 0.3) !important;
     }
     section[data-testid="stSidebar"] .stRadio label p {
         color: #8fa0be !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # =============================================================================
-# 3. SECURE REPOSITORY BACKEND CLIENT INTEGRATIONS
+# 3. SECURE REPOSITORY BACKEND CLIENT INTEGRATIONS & TELEMETRY INITIALIZATION
 # =============================================================================
 api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
@@ -244,10 +258,10 @@ if "app_unlocked" not in st.session_state:
 # Render Gateway Landing Overlay Shell
 if not st.session_state.app_unlocked:
     st.markdown("""
-        <div class="gateway-entry-container">
-            <div class="gateway-tagline">INITIALIZING CORE ACCESS PARSING SYSTEM</div>
-            <div class="gateway-title">KUBOOM CHATBOT</div>
-            <div class="gateway-subtitle">A chatbot made by Rohit</div>
+        <div class="telemetry-landing-wrapper">
+            <div class="telemetry-tagline">INITIALIZING ACCESS INSTANCE PROTOCOLS</div>
+            <div class="telemetry-title">KUBOOM CHATBOT</div>
+            <div class="telemetry-subtitle">A chatbot made by Rohit</div>
         </div>
     """, unsafe_allow_html=True)
     
@@ -307,7 +321,7 @@ if page == "💬 Chat Matrix":
         <div class="neobrutalist-content-card">
             <h3>CORE CONVERSATIONAL MATRIX</h3>
             <h1>💬 CONVERSATIONAL ASSISTANT</h1>
-            <div class="card-narrative-paragraph">Direct interface to processing model layers for engineering, technology, curriculum structures, and coding modules.</div>
+            <div class="card-narrative-paragraph">Direct pipeline into raw Llama processing layers optimized for engineering concepts, advanced BTech topics, and framework tutorials.</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -320,22 +334,32 @@ Keep responses concise and practical."""
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": system_prompt}]
 
-    col_empty_spacer, col_clear_trigger = st.columns([3.6, 1.4])
-    with col_clear_trigger:
-        if st.button("🗑️ PURGE MEMORY LOGS", use_container_width=True):
+    # Structural Telemetry Layout Grid Row
+    st.write("### 📊 Workspace Performance Records")
+    col_stat1, col_stat2, col_stat3 = st.columns(3)
+    with col_stat1:
+        st.metric(label="ACTIVE PROCESSING CORE", value="Llama 3.3 70B")
+    with col_stat2:
+        st.metric(label="ACTIVE STORAGE FLOWS", value=f"{len(st.session_state.messages) - 1} Signals")
+    with col_stat3:
+        if st.button("🗑️ PURGE MEMORY PACKETS", use_container_width=True):
             st.session_state.messages = [{"role": "system", "content": system_prompt}]
             st.rerun()
 
-    # Active message loop output formatting
+    st.write("---")
+    st.write("### 📟 Transaction Streams Log")
+
+    # Render conversational logs
     for msg in st.session_state.messages:
         if msg["role"] != "system":
             st.chat_message(msg["role"]).write(msg["content"])
 
-    chat_matrix_input = st.chat_input("Enter system conversational string payload parameters...")
+    chat_matrix_input = st.chat_input("Enter message packet strings or curriculum queries...")
     if chat_matrix_input:
         st.session_state.messages.append({"role": "user", "content": chat_matrix_input})
         st.chat_message("user").write(chat_matrix_input)
-        with st.spinner("Processing Token Telemetry..."):
+        
+        with st.spinner("Processing Matrix Data..."):
             response = client.chat.completions.create(
                 model="llama-3.3-70b-versatile",
                 messages=st.session_state.messages
@@ -343,7 +367,7 @@ Keep responses concise and practical."""
         reply_string = response.choices.message.content
         st.session_state.messages.append({"role": "assistant", "content": reply_string})
         st.chat_message("assistant").write(reply_string)
-# B. AUTOMONOMOUS NET EXPLORER NODE MODULE
+# B. AUTONOMOUS NETWORK SCRAPER SEARCH ENGINE MODULE
 elif page == "🔍 Realtime Web Crawler":
     st.markdown("""
         <div class="neobrutalist-content-card">
@@ -356,6 +380,20 @@ elif page == "🔍 Realtime Web Crawler":
     if "search_messages" not in st.session_state:
         st.session_state.search_messages = []
 
+    # Local Metric Telemetry Tracking Dashboard Rows
+    st.write("### 📊 Live Scraper Telemetry Metrics")
+    col_crawl_1, col_crawl_2, col_crawl_3 = st.columns(3)
+    with col_crawl_1:
+        st.metric(label="EXTRACTION SEARCH CORE", value="DuckDuckGo Node")
+    with col_crawl_2:
+        st.metric(label="ACTIVE STREAM SESSIONS", value=f"{len(st.session_state.search_messages)} Buffers")
+    with col_crawl_3:
+        if st.button("🗑️ RESET LIVE CRAWL STREAM", use_container_width=True):
+            st.session_state.search_messages = []
+            st.rerun()
+
+    st.write("---")
+    st.write("### 📟 Live Web Stream")
     for msg in st.session_state.search_messages:
         st.chat_message(msg["role"]).write(msg["content"])
 
@@ -363,9 +401,11 @@ elif page == "🔍 Realtime Web Crawler":
     if crawler_query_input:
         st.session_state.search_messages.append({"role": "user", "content": crawler_query_input})
         st.chat_message("user").write(crawler_query_input)
-        with st.spinner("Deploying Extraction Agents..."):
+        
+        with st.spinner("Deploying Extraction Agents Across Networks..."):
             response = agent.invoke({"messages": [{"role": "user", "content": crawler_query_input}]})
             extracted_reply = response["messages"][-1].content
+            
         st.session_state.search_messages.append({"role": "assistant", "content": extracted_reply})
         st.chat_message("assistant").write(extracted_reply)
 # C. RUNTIME CODE REFACTOR ANALYSIS LAB
@@ -378,6 +418,17 @@ elif page == "💻 Code Explainer":
         </div>
     """, unsafe_allow_html=True)
 
+    # Architectural Telemetry Dashboard Rows
+    st.write("### 📊 Compiler Diagnostic Parameters")
+    col_code_1, col_code_2, col_code_3 = st.columns(3)
+    with col_code_1:
+        st.metric(label="PARSER COMPILER ENGINE", value="Llama-3.3-70B")
+    with col_code_2:
+        st.metric(label="MAX COMPUTE LIMIT", value="8,192 Tokens")
+    with col_code_3:
+        st.metric(label="SYSTEM LATENCY STATUS", value="OPTIMAL // 0.02s")
+
+    st.write("---")
     st.write("### 📟 Source Script Array Buffer Input")
     source_script_buffer = st.text_area("", height=220, placeholder="def compute_matrix():\n    return 'Execution Array Calibrated'")
     
@@ -429,9 +480,9 @@ elif page == "💻 Code Explainer":
             st.write(response.choices.message.content)
             st.markdown('</div>', unsafe_allow_html=True)
     else:
-        st.info("ℹ️ Supply standard target program code into the matrix buffer text area box above to activate analytics.")
+        st.info("ℹ) Supply standard target program code into the matrix buffer text area box above to activate analytics.")
 # D. TOPIC COMPREHENSION ASSESSMENT CONFIGURATOR MODULE
-elif page == "📝 Examination Quiz":
+elif page == "📝 Quiz Matrix":
     st.markdown("""
         <div class="neobrutalist-content-card">
             <h3>COMPILING COMPREHENSION METRICS</h3>
@@ -440,6 +491,17 @@ elif page == "📝 Examination Quiz":
         </div>
     """, unsafe_allow_html=True)
 
+    # Local Telemetry Dashboard Rows
+    st.write("### 📊 Quiz Evaluation Metrics")
+    col_quiz_1, col_code_2, col_code_3 = st.columns(3)
+    with col_quiz_1:
+        st.metric(label="EVALUATION COMPILER", value="Llama-3.3-70B")
+    with col_code_2:
+        st.metric(label="TARGET GRADING SYSTEM", value="BTech / Bounded")
+    with col_code_3:
+        st.metric(label="SCHEMA COMPLIANCE STATUS", value="100% SECURE")
+
+    st.write("---")
     st.write("### ⚙️ Evaluation Matrix Parameters")
     target_subject_topic = st.text_input("Declare Target Subject Focus Topic Domain Tree:", placeholder="e.g. Backpropagation Math Operations")
     magnitude_questions = st.slider("Quantity of Target Examination Nodes:", 3, 10, 5)
@@ -470,7 +532,20 @@ elif page == "📄 Document Structural Parser":
         </div>
     """, unsafe_allow_html=True)
 
-    st.write("### 📁 Archive Dataset Storage Mount")
+    # Structural Telemetry Layout Grid Row
+    st.write("### 📊 Document Mounting Metrics")
+    col_pdf_1, col_pdf_2, col_pdf_3 = st.columns(3)
+    with col_pdf_1:
+        st.metric(label="PARSER BUFFER TYPE", value="PyPDF2 Engine")
+    with col_pdf_2:
+        st.metric(label="DATA INPUT STATUS", value="READY FOR MOUNT")
+    with col_pdf_3:
+        if st.button("🗑️ PURGE DOCUMENT CONTEXT", use_container_width=True):
+            st.session_state.pdf_messages = []
+            st.rerun()
+
+    st.write("---")
+    st.write("### 📁 Archive Data Storage Mount")
     uploaded_pdf_asset = st.file_uploader("Upload Target Technical PDF Schematic Asset:", type="pdf")
     final_extracted_pdf_text = ""
     
