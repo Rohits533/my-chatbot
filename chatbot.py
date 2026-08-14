@@ -6,20 +6,31 @@ from langgraph.prebuilt import create_react_agent
 import PyPDF2
 import io
 
-# 1. PAGE LAYOUT CONFIGURATION
+# 1. EXPAND RUNTIME WEB WINDOW SCREEN SPACE
 st.set_page_config(
     page_title="Rohit's AI Assistant",
     page_icon="🤖",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-# 2. INJECT CHAINGPT EXPERIMENTAL LIGHT GRID DESIGN SYSTEM
+# 2. INJECT INDUSTRIAL TECH MESH GRID SCHEMATIC AND CUSTOM CHAT STYLE ENGINE
 st.markdown("""
     <style>
-    /* Premium Entry Animations */
+    /* Cascading System Entry Animations */
     @keyframes techFadeIn {
-        0% { opacity: 0; transform: translateY(25px); filter: blur(4px); }
+        0% { opacity: 0; transform: translateY(20px); filter: blur(4px); }
         100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes matrixPulse {
+        0% { box-shadow: 0 0 15px rgba(255, 90, 31, 0.15); border-color: #c2c8d4; }
+        50% { box-shadow: 0 0 30px rgba(255, 90, 31, 0.4); border-color: #ff5a1f; }
+        100% { box-shadow: 0 0 15px rgba(255, 90, 31, 0.15); border-color: #c2c8d4; }
+    }
+    @keyframes eyeGlow {
+        0% { filter: drop-shadow(0 0 4px #00ffcc); }
+        50% { filter: drop-shadow(0 0 12px #00ffcc); }
+        100% { filter: drop-shadow(0 0 4px #00ffcc); }
     }
 
     /* Core Technical Blueprint Background Grid */
@@ -28,43 +39,94 @@ st.markdown("""
         background-image: 
             linear-gradient(to right, #d0d4dc 1px, transparent 1px),
             linear-gradient(to bottom, #d0d4dc 1px, transparent 1px) !important;
-        background-size: 80px 80px !important;
+        background-size: 60px 60px !important;
         color: #0f1115 !important;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     }
 
-    /* Entry Dashboard Container alignment */
+    /* Entrance Dashboard Layout Formatter */
     .landing-hero {
         text-align: center;
-        margin-top: 5vh;
+        margin-top: 8vh;
         animation: techFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     .landing-tagline {
         font-size: 13px;
         font-weight: 800;
         color: #ff5a1f;
-        letter-spacing: 4px;
+        letter-spacing: 5px;
         text-transform: uppercase;
-        margin-bottom: 12px;
+        margin-bottom: 15px;
     }
     .landing-title {
-        font-size: 84px;
+        font-size: 86px;
         font-weight: 900;
         color: #0f1115;
         letter-spacing: -3px;
         text-transform: uppercase;
         line-height: 0.95;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
     }
     .landing-subtitle {
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 600;
-        color: #60687d;
+        color: #555e72;
         letter-spacing: 0.5px;
-        margin-bottom: 35px;
+        margin-bottom: 45px;
     }
 
-    /* Top Workspace Header Navigation Strip */
+    /* Mechanical Robot Layout Framework */
+    .mechanical-robot-canvas {
+        width: 250px;
+        height: 250px;
+        background-color: #ffffff;
+        border: 1px solid #c2c8d4;
+        border-radius: 4px;
+        margin: 0 auto 40px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        animation: matrixPulse 4s infinite ease-in-out;
+    }
+    .crosshair-tick {
+        position: absolute; width: 6px; height: 6px; background-color: #ff5a1f;
+    }
+    .ct-tl { top: -3px; left: -3px; }
+    .ct-tr { top: -3px; right: -3px; }
+    .ct-bl { bottom: -3px; left: -3px; }
+    .ct-br { bottom: -3px; right: -3px; }
+
+    .robot-neck-mount {
+        position: absolute; bottom: 25px; width: 90px; height: 40px;
+        background-color: #e2e7ee; border: 1px solid #b8bfc9; border-radius: 4px;
+    }
+    .robot-head-shell {
+        width: 150px; height: 150px; background-color: #ffffff;
+        border: 1px solid #b8bfc9; border-radius: 44px; display: flex;
+        justify-content: center; align-items: center; position: relative; z-index: 2;
+    }
+    .robot-neon-piping {
+        position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px;
+        border: 9px solid #ff5a1f; border-radius: 40px;
+        box-shadow: 0 0 15px rgba(255, 90, 31, 0.4), inset 0 0 12px rgba(255, 90, 31, 0.3);
+    }
+    .robot-visor-display {
+        width: 100px; height: 100px; background-color: #15171e;
+        background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 0);
+        background-size: 8px 8px; border-radius: 28px; display: flex;
+        justify-content: center; align-items: center; gap: 18px; position: relative;
+        z-index: 3; box-shadow: inset 0 4px 10px rgba(0,0,0,0.7);
+    }
+    .robot-matrix-optic {
+        width: 12px; height: 12px; background-color: #00ffcc; border-radius: 50%;
+        box-shadow: 0 0 10px #00ffcc, 0 0 18px rgba(0,255,204,0.6);
+        animation: eyeGlow 3s infinite ease-in-out;
+    }
+    .ear-hinge-l { position: absolute; left: 39px; top: 107px; width: 12px; height: 35px; background-color: #ccd2db; border: 1px solid #b8bfc9; border-radius: 4px 0 0 4px; }
+    .ear-hinge-r { position: absolute; right: 39px; top: 107px; width: 12px; height: 35px; background-color: #ccd2db; border: 1px solid #b8bfc9; border-radius: 0 4px 4px 0; }
+
+    /* Top Horizontal Corporate Navigation Ribbon */
     .brand-top-nav {
         display: flex;
         justify-content: space-between;
@@ -79,110 +141,51 @@ st.markdown("""
         align-items: center;
         gap: 10px;
     }
-    .brand-orange-cube {
-        width: 12px;
-        height: 12px;
-        background-color: #ff5a1f;
-    }
-    .brand-logo-text {
-        font-size: 15px;
-        font-weight: 900;
-        letter-spacing: 1px;
-        color: #0f1115;
-        text-transform: uppercase;
-    }
+    .brand-orange-cube { width: 12px; height: 12px; background-color: #ff5a1f; }
+    .brand-logo-text { font-size: 15px; font-weight: 900; letter-spacing: 1px; color: #0f1115; text-transform: uppercase; }
+    
     .portfolio-link-button {
-        display: inline-block;
-        background-color: #0f1115;
-        color: #ffffff !important;
-        font-size: 11px;
-        font-weight: 700;
-        padding: 10px 22px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        border-radius: 4px;
-        text-decoration: none !important;
+        display: inline-block; background-color: #0f1115; color: #ffffff !important;
+        font-size: 11px; font-weight: 700; padding: 10px 22px; text-transform: uppercase;
+        letter-spacing: 1px; border-radius: 4px; text-decoration: none !important;
+        transition: all 0.2s ease;
     }
-    .portfolio-link-button:hover {
-        background-color: #242933;
-    }
+    .portfolio-link-button:hover { background-color: #ff5a1f; box-shadow: 0 4px 15px rgba(255, 90, 31, 0.3); }
 
-    /* Technical Content Workspace Blocks */
+    /* Structural Panel Formats */
     .chaingpt-panel {
         background-color: #edf0f4 !important;
         border: 1px solid #b8bfc9 !important;
+        border-radius: 4px !important;
         padding: 35px !important;
         margin-bottom: 25px !important;
         position: relative;
         animation: techFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .chaingpt-panel::before {
-        content: '';
-        position: absolute;
-        top: -3px;
-        left: -3px;
-        width: 6px;
-        height: 6px;
-        background-color: #ff5a1f;
-    }
-    .chaingpt-panel::after {
-        content: '';
-        position: absolute;
-        bottom: -3px;
-        right: -3px;
-        width: 6px;
-        height: 6px;
-        background-color: #ff5a1f;
-    }
+    .chaingpt-panel::before { content: ''; position: absolute; top: -3px; left: -3px; width: 6px; height: 6px; background-color: #ff5a1f; }
+    .chaingpt-panel::after { content: ''; position: absolute; bottom: -3px; right: -3px; width: 6px; height: 6px; background-color: #ff5a1f; }
 
-    /* Global UI Form Controls and Elements */
-    h1 {
-        font-size: 38px !important;
-        font-weight: 900 !important;
-        color: #0f1115 !important;
-        text-transform: uppercase !important;
-        margin-top: 0px !important;
-    }
-    h3 {
-        font-size: 13px !important;
-        font-weight: 700 !important;
-        color: #ff5a1f !important;
-        text-transform: uppercase !important;
-        letter-spacing: 1.5px !important;
-    }
-    .panel-desc {
-        font-size: 15px;
-        color: #60687d;
-        margin-bottom: 25px;
-    }
+    /* Typography & Core Form Elements Overrides */
+    h1 { font-size: 42px !important; font-weight: 900 !important; color: #0f1115 !important; letter-spacing: -1px !important; text-transform: uppercase !important; margin-top: 0px !important; }
+    h3 { font-size: 13px !important; font-weight: 700 !important; color: #ff5a1f !important; text-transform: uppercase !important; letter-spacing: 2px !important; margin-bottom: 12px !important; }
+    .panel-desc { font-size: 15px; color: #555e72; margin-bottom: 25px; }
+
     .stButton>button {
-        background-color: #ff5a1f !important;
-        color: #ffffff !important;
-        border: none !important;
-        border-radius: 4px !important;
-        padding: 14px 32px !important;
-        font-size: 13px !important;
-        font-weight: 700 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 1.5px !important;
+        background-color: #ff5a1f !important; color: #ffffff !important; border: none !important;
+        border-radius: 4px !important; padding: 14px 32px !important; font-size: 12px !important;
+        font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: 1.5px !important;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        box-shadow: 0 4px 12px rgba(255, 90, 31, 0.2) !important;
     }
-    .stButton>button:hover {
-        background-color: #e04a15 !important;
-    }
-    .stTextArea textarea, .stTextInput input {
-        background-color: #ffffff !important;
-        color: #0f1115 !important;
-        border: 1px solid #b8bfc9 !important;
-        border-radius: 4px !important;
-    }
-    section[data-testid="stSidebar"] {
-        background-color: #e1e4e9 !important;
-        border-right: 1px solid #b8bfc9 !important;
-    }
+    .stButton>button:hover { background-color: #0f1115 !important; color: #ffffff !important; transform: translateY(-1px) !important; box-shadow: 0 6px 20px rgba(15, 17, 21, 0.25) !important; }
+
+    .stTextArea textarea, .stTextInput input { background-color: #ffffff !important; color: #0f1115 !important; border: 1px solid #b8bfc9 !important; border-radius: 4px !important; font-size: 14px !important; }
+    .stTextArea textarea:focus, .stTextInput input:focus { border-color: #ff5a1f !important; box-shadow: 0 0 0 1px #ff5a1f !important; }
+    .stChatMessage { background-color: #ffffff !important; border: 1px solid #dcdfe6 !important; border-radius: 8px !important; padding: 16px !important; margin-bottom: 12px !important; box-shadow: 0 2px 6px rgba(0,0,0,0.02) !important; }
+    section[data-testid="stSidebar"] { background-color: #e1e4e9 !important; border-right: 1px solid #b8bfc9 !important; }
     </style>
 """, unsafe_allow_html=True)
-
-# 3. INITIALIZE BACKEND API CONNECTIONS
+# 3. INITIALIZE SECURE ENDPOINT MODELS OVER CONNECTIONS
 api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
 
@@ -194,84 +197,29 @@ search = DuckDuckGoSearchRun()
 tools = [search]
 agent = create_react_agent(llm, tools)
 
-# 4. FLOW APP GATEWAY STATE CHECK
+# 4. APP GATEWAY FLOW VALIDATORS
 if "app_unlocked" not in st.session_state:
     st.session_state.app_unlocked = False
 
-# 5. ENTRY SYSTEM DASHBOARD OVERLAY WITH THE UPGRADED DESIGNER ROBOT VISOR
+# Gateway Display Rendering Module
 if not st.session_state.app_unlocked:
     st.markdown("""
         <div class="landing-hero">
-            <div class="landing-tagline">BACKING TOMORROW // ROBIT CORE</div>
+            <div class="landing-tagline">BACKING TOMORROW // ROBIT CORE ENGINE</div>
             <div class="landing-title">KUBOOM CHATBOT</div>
             <div class="landing-subtitle">A chatbot made by Rohit</div>
             
-            <!-- Upgraded Designer Robot Vector Canvas Graphic -->
-            <div style="
-                width: 260px;
-                height: 260px;
-                background-color: #ffffff;
-                border: 1px solid #b8bfc9;
-                border-radius: 8px;
-                margin: 0 auto 40px auto;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            ">
-                <div style="
-                    position: absolute;
-                    bottom: 0;
-                    width: 120px;
-                    height: 35px;
-                    background-color: #ccd2db;
-                    border: 1px solid #b8bfc9;
-                    border-radius: 4px 4px 0 0;
-                "></div>
-                <div style="
-                    width: 170px;
-                    height: 170px;
-                    background-color: #ffffff;
-                    border: 1px solid #b8bfc9;
-                    border-radius: 40px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: relative;
-                    z-index: 2;
-                ">
-                    <div style="
-                        position: absolute;
-                        top: 6px;
-                        left: 6px;
-                        right: 6px;
-                        bottom: 6px;
-                        border: 10px solid #ff5a1f;
-                        border-radius: 34px;
-                        box-shadow: 0 0 20px rgba(255, 90, 31, 0.6), inset 0 0 15px rgba(255, 90, 31, 0.4);
-                    "></div>
-                    <div style="
-                        width: 110px;
-                        height: 110px;
-                        background-color: #1a1d24;
-                        background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 0);
-                        background-size: 8px 8px;
-                        border-radius: 24px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        gap: 22px;
-                        position: relative;
-                        z-index: 3;
-                        box-shadow: inset 0 4px 10px rgba(0,0,0,0.8);
-                    ">
-                        <div style="width: 14px; height: 14px; background-color: #ffffff; border-radius: 50%; box-shadow: 0 0 14px #ffffff, 0 0 25px rgba(255,255,255,0.8);"></div>
-                        <div style="width: 14px; height: 14px; background-color: #ffffff; border-radius: 50%; box-shadow: 0 0 14px #ffffff, 0 0 25px rgba(255,255,255,0.8);"></div>
+            <div class="mechanical-robot-canvas">
+                <div class="crosshair-tick ct-tl"></div><div class="crosshair-tick ct-tr"></div>
+                <div class="crosshair-tick ct-bl"></div><div class="crosshair-tick ct-br"></div>
+                <div class="robot-neck-mount"></div>
+                <div class="robot-head-shell">
+                    <div class="robot-neon-piping"></div>
+                    <div class="robot-visor-display">
+                        <div class="robot-matrix-optic"></div><div class="robot-matrix-optic"></div>
                     </div>
                 </div>
-                <div style="position: absolute; left: 33px; top: 115px; width: 16px; height: 32px; background-color: #b8bfc9; border-radius: 4px 0 0 4px;"></div>
-                <div style="position: absolute; right: 33px; top: 115px; width: 16px; height: 32px; background-color: #b8bfc9; border-radius: 0 4px 4px 0;"></div>
+                <div class="ear-hinge-l"></div><div class="ear-hinge-r"></div>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -282,7 +230,8 @@ if not st.session_state.app_unlocked:
             st.session_state.app_unlocked = True
             st.rerun()
     st.stop()
-# 6. APPLICATION SYSTEM NAVIGATION BANNER
+
+# 5. GLOBAL HORIZONTAL BRAND COMPONENT DEPLOYMENT
 st.markdown("""
     <div class="brand-top-nav">
         <div class="brand-logo-wrap">
@@ -294,25 +243,28 @@ st.markdown("""
     <div style="margin-bottom: 30px;"></div>
 """, unsafe_allow_html=True)
 
-# 7. SIDEBAR FRAME SELECTION
+# Sidebar System Instance Menu
 st.sidebar.markdown("<h3 style='margin-top:10px;'>⚙️ UTILITY NODES</h3>", unsafe_allow_html=True)
 page = st.sidebar.radio("CHOOSE MODULE:", [
-    "💬 Chat",
-    "🔍 Web Search Agent",
+    "💬 Chat Engine",
+    "🔍 Web Search Node",
     "💻 Code Explainer",
-    "📝 Quiz Generator",
-    "📄 PDF Reader"
+    "📝 Quiz Matrix",
+    "📄 PDF Structural Parser"
 ])
 st.sidebar.markdown("---")
-st.sidebar.markdown("<div style='font-size:11px; color:#60687d;'>COMPILED BY ROHIT • METAMATRIX ENGINE</div>", unsafe_allow_html=True)
+st.sidebar.markdown("<div style='font-size:11px; color:#60687d;'>DESIGN COMPILED BY ROHIT • METAMATRIX ENGINE</div>", unsafe_allow_html=True)
+# ==========================================
+# 6. APPLICATION ROUTINE INSTANCE SWITCHES
+# ==========================================
 
-# 8. WORKSPACE CONTROL ROUTINES
-if page == "💬 Chat":
+# A. LIVE CONVERSATIONAL CORE MODULE
+if page == "💬 Chat Engine":
     st.markdown("""
         <div class="chaingpt-panel">
-            <h3>CORE SYSTEM DATASTREAM</h3>
-            <h1>💬 CONVERSATIONAL ASSISTANT</h1>
-            <div class="panel-desc">Direct interface to standard processing matrix blocks for computer science, engineering, and coding updates.</div>
+            <h3>CORE CONVERSATIONAL MATRIX</h3>
+            <h1>💬 CORE CHAT SERVICES</h1>
+            <div class="panel-desc">Direct interface to processing model blocks for computer science, curriculum engineering, and coding tutorials.</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -325,9 +277,9 @@ Keep responses concise and practical."""
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": system_prompt}]
 
-    col_space, col_reset = st.columns([4, 1])  # Explicit sizing configurations passed to avoid layout leaks
+    col_space, col_reset = st.columns()  # Configuration lengths passed to protect column alignments
     with col_reset:
-        if st.button("🗑️ PURGE BUFFER LOGS"):
+        if st.button("🗑️ PURGE STORAGE", use_container_width=True):
             st.session_state.messages = [{"role": "system", "content": system_prompt}]
             st.rerun()
 
@@ -335,11 +287,11 @@ Keep responses concise and practical."""
         if msg["role"] != "system":
             st.chat_message(msg["role"]).write(msg["content"])
 
-    user_input = st.chat_input("Enter message packet parameters...")
+    user_input = st.chat_input("Enter conversational string payload blocks...")
     if user_input:
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.chat_message("user").write(user_input)
-        with st.spinner("Processing Token Arrays..."):
+        with st.spinner("Processing Matrix Data Block..."):
             response = client.chat.completions.create(
                 model="llama-3.3-70b-versatile",
                 messages=st.session_state.messages
@@ -347,12 +299,14 @@ Keep responses concise and practical."""
         reply = response.choices.message.content
         st.session_state.messages.append({"role": "assistant", "content": reply})
         st.chat_message("assistant").write(reply)
-elif page == "🔍 Web Search Agent":
+
+# B. AUTONOMOUS NETWORK SCRAPER SEARCH ENGINE
+elif page == "🔍 Web Search Node":
     st.markdown("""
         <div class="chaingpt-panel">
-            <h3>REALTIME SCRAPING ARRAYS</h3>
-            <h1>🔍 WEB SEARCH NODE</h1>
-            <div class="panel-desc">Queries live network records to cross-reference system queries against active global domains.</div>
+            <h3>REALTIME DISCOVERY ARRAYS</h3>
+            <h1>🔍 WEB SEARCH MODULE</h1>
+            <div class="panel-desc">Runs automated queries against network endpoints to return up-to-date documentation schemas.</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -362,38 +316,38 @@ elif page == "🔍 Web Search Agent":
     for msg in st.session_state.search_messages:
         st.chat_message(msg["role"]).write(msg["content"])
 
-    search_input = st.chat_input("Input network crawler search strings...")
+    search_input = st.chat_input("Enter target live exploration parameters...")
     if search_input:
         st.session_state.search_messages.append({"role": "user", "content": search_input})
         st.chat_message("user").write(search_input)
-        with st.spinner("Invoking Crawl Matrix..."):
+        with st.spinner("Invoking Autonomous Data Extraction Node..."):
             response = agent.invoke({"messages": [{"role": "user", "content": search_input}]})
             reply = response["messages"][-1].content
         st.session_state.search_messages.append({"role": "assistant", "content": reply})
         st.chat_message("assistant").write(reply)
-
+# C. RUNTIME SCRIPT ANALYSIS COMPILER ENGINE
 elif page == "💻 Code Explainer":
     st.markdown("""
         <div class="chaingpt-panel">
-            <h3>SYNTAX REFACTOR RUNTIME</h3>
+            <h3>RUNTIME LOGIC INTERCEPT</h3>
             <h1>💻 CODE DECONSTRUCTION</h1>
-            <div class="panel-desc">Paste engineering scripts to trace call stacks, audit runtime bugs, and optimize logic fields.</div>
+            <div class="panel-desc">Paste script components to map out logic structures, handle syntax bugs, and calculate optimizations.</div>
         </div>
     """, unsafe_allow_html=True)
 
-    code_input = st.text_area("Source Code Array Input Buffer:", height=200, placeholder="def active_matrix():\n    return 'Telemetry Stable'")
+    code_input = st.text_area("Source Code Array Buffer Input:", height=200, placeholder="def runtime_matrix():\n    return 'Execution Verified'")
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        explain = st.button("📖 EXPLAIN PATTERNS")
+        explain = st.button("📖 EXPLAIN SCRIPT ARCHITECTURE", use_container_width=True)
     with col2:
-        debug = st.button("🐛 AUDIT SYNTAX")
+        debug = st.button("🐛 DIAGNOSE EXCEPTIONS", use_container_width=True)
     with col3:
-        improve = st.button("⚡ ACCELERATE RUNTIME")
+        improve = st.button("⚡ ACCELERATE PERFORMANCE", use_container_width=True)
 
     if code_input:
         if explain:
-            with st.spinner("Mapping Call Trees..."):
+            with st.spinner("Tracing Call Trees..."):
                 response = client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     messages=[
@@ -401,11 +355,12 @@ elif page == "💻 Code Explainer":
                         {"role": "user", "content": f"Explain this code step by step:\n\n{code_input}"}
                     ]
                 )
-            st.markdown('<h3>📖 ARCHITECTURAL EXPLANATION</h3>', unsafe_allow_html=True)
+            st.markdown('<div class="chaingpt-panel"><h3>📖 STRUCTURAL BREAKDOWN</h3>', unsafe_allow_html=True)
             st.write(response.choices.message.content)
+            st.markdown('</div>', unsafe_allow_html=True)
 
         if debug:
-            with st.spinner("Scanning Assembly Exceptions..."):
+            with st.spinner("Scanning Exceptions..."):
                 response = client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     messages=[
@@ -413,11 +368,12 @@ elif page == "💻 Code Explainer":
                         {"role": "user", "content": f"Find any bugs or errors in this code:\n\n{code_input}"}
                     ]
                 )
-            st.markdown('<h3>🐛 RUNTIME CONTEXT EXCEPTIONS IDENTIFIED</h3>', unsafe_allow_html=True)
+            st.markdown('<div class="chaingpt-panel"><h3>🐛 SYNTAX EXCEPTIONS ENCOUNTERED</h3>', unsafe_allow_html=True)
             st.write(response.choices.message.content)
+            st.markdown('</div>', unsafe_allow_html=True)
 
         if improve:
-            with st.spinner("Optimizing Memory Allocations..."):
+            with st.spinner("Calculating Performance O-Complexities..."):
                 response = client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     messages=[
@@ -425,24 +381,26 @@ elif page == "💻 Code Explainer":
                         {"role": "user", "content": f"Suggest improvements for this code:\n\n{code_input}"}
                     ]
                 )
-            st.markdown('<h3>⚡ REFACTORED COMPUTATIONAL OUTLINES</h3>', unsafe_allow_html=True)
+            st.markdown('<div class="chaingpt-panel"><h3>⚡ REFACTORED WORKSPACE BLOCKS</h3>', unsafe_allow_html=True)
             st.write(response.choices.message.content)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-elif page == "📝 Quiz Generator":
+# D. TOPIC COMPREHENSION EXAMINATION MATRIX GENERATOR
+elif page == "📝 Quiz Matrix":
     st.markdown("""
         <div class="chaingpt-panel">
-            <h3>COMPILING SYSTEM TESTS</h3>
+            <h3>COMPILING COMPREHENSION OBJECTS</h3>
             <h1>📝 MCQ EVALUATION GENERATOR</h1>
-            <div class="panel-desc">Generate detailed, customized multiple choice practice templates dynamically from instructional string targets.</div>
+            <div class="panel-desc">Convert instruction variables into tailored multiple-choice training sets.</div>
         </div>
     """, unsafe_allow_html=True)
 
-    topic = st.text_input("Enter Evaluation Focus Sub-Branch Topic:", placeholder="e.g. Backpropagation Math")
+    topic = st.text_input("Enter Focus Subject Topic Node:", placeholder="e.g. Backpropagation Matrices")
     num_questions = st.slider("Quantity of Target Examination Nodes:", 3, 10, 5)
 
-    if st.button("🎯 SYNTHESIZE EXAMINATION SCHEMATICS"):
+    if st.button("🎯 SYNTHESIZE ASSESSMENT BLOCKS", use_container_width=True):
         if topic:
-            with st.spinner("Compiling Training Set Objects..."):
+            with st.spinner("Formulating Training Objects..."):
                 response = client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     messages=[
@@ -450,17 +408,19 @@ elif page == "📝 Quiz Generator":
                         {"role": "user", "content": f"Generate {num_questions} MCQ questions about {topic}. Format each question with 4 options (A, B, C, D) and mark the correct answer at the end."}
                     ]
                 )
-            st.markdown('<h3>🎯 GENERATED TRAINING OBJECT FRAMEWORKS</h3>', unsafe_allow_html=True)
+            st.markdown('<div class="chaingpt-panel"><h3>🎯 TARGET GENERATED EVALUATION MODELS</h3>', unsafe_allow_html=True)
             st.write(response.choices.message.content)
+            st.markdown('</div>', unsafe_allow_html=True)
         else:
-            st.warning("Variable Declaration Missing: Enter a topic input first.")
+            st.warning("Variable Declaration Missing: Supply topic parameter input first.")
 
-elif page == "📄 PDF Reader":
+# E. STRUCTURAL FILE PARSING RECONSTRUCTION MODULE
+elif page == "📄 PDF Structural Parser":
     st.markdown("""
         <div class="chaingpt-panel">
-            <h3>STRUCTURAL INDEX ANALYSIS</h3>
+            <h3>INDEX CONTENT INTERROGATOR</h3>
             <h1>📄 STRUCTURAL FILE PARSER</h1>
-            <div class="panel-desc">Process heavy layout documentation blueprints to inspect underlying data context sheets.</div>
+            <div class="panel-desc">Process heavy layout documentation blueprints to inspect underlying static contexts.</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -470,7 +430,7 @@ elif page == "📄 PDF Reader":
         pdf_reader = PyPDF2.PdfReader(io.BytesIO(uploaded_file.read()))
         for page_num in pdf_reader.pages:
             pdf_text += page_num.extract_text()
-        st.success("Target Content Dataset Synchronized Successfully.")
+        st.success("Target Content Dataset Mounted Successfully.")
 
     if "pdf_messages" not in st.session_state:
         st.session_state.pdf_messages = []
@@ -478,7 +438,7 @@ elif page == "📄 PDF Reader":
     for msg in st.session_state.pdf_messages:
         st.chat_message(msg["role"]).write(msg["content"])
 
-    pdf_input = st.chat_input("Query file data structures here...")
+    pdf_input = st.chat_input("Query structural document fields...")
     if pdf_input:
         st.session_state.pdf_messages.append({"role": "user", "content": pdf_input})
         st.chat_message("user").write(pdf_input)
