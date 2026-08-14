@@ -277,7 +277,7 @@ st.markdown("""
     <div class="brand-top-nav">
         <div class="brand-logo-wrap">
             <div class="brand-orange-cube"></div>
-            <div class="brand-logo-text">KUBOOM WORKSPACE SYSTEM</div>
+            <div class="brand-logo-text">WELCOME TO ROHIT'S CHATBOT</div>
         </div>
         <a class="portfolio-link-button" href="https://github.io" target="_blank">🔗 VIEW MY PORTFOLIO</a>
     </div>
@@ -314,7 +314,7 @@ Keep responses concise and practical."""
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": system_prompt}]
 
-    col_space, col_reset = st.columns()
+    col_space, col_reset = st.columns([4, 1])  # FIXED: Explicit configuration lengths passed here
     with col_reset:
         if st.button("🗑️ PURGE BUFFER LOGS"):
             st.session_state.messages = [{"role": "system", "content": system_prompt}]
@@ -427,8 +427,8 @@ elif page == "📝 Quiz Generator":
         </div>
     """, unsafe_allow_html=True)
 
-    topic = st.text_input("Enter Target Skill Domain Field:", placeholder="e.g. Relational Database Norms")
-    num_questions = st.slider("Quantity of Target Evaluation Nodes:", 3, 10, 5)
+    topic = st.text_input("Enter Evaluation Focus Sub-Branch Topic:", placeholder="e.g. Backpropagation Math")
+    num_questions = st.slider("Quantity of Target Examination Nodes:", 3, 10, 5)
 
     if st.button("🎯 SYNTHESIZE EXAMINATION SCHEMATICS"):
         if topic:
@@ -440,17 +440,17 @@ elif page == "📝 Quiz Generator":
                         {"role": "user", "content": f"Generate {num_questions} MCQ questions about {topic}. Format each question with 4 options (A, B, C, D) and mark the correct answer at the end."}
                     ]
                 )
-            st.markdown('<h3>🎯 TARGET RUNTIME EVALUATION MODELS</h3>', unsafe_allow_html=True)
+            st.markdown('<h3>🎯 GENERATED TRAINING OBJECT FRAMEWORKS</h3>', unsafe_allow_html=True)
             st.write(response.choices.message.content)
         else:
-            st.warning("Variable Range Error: Declare focus topic component before rendering matrix.")
+            st.warning("Variable Declaration Missing: Enter a topic input first.")
 
 elif page == "📄 PDF Reader":
     st.markdown("""
         <div class="chaingpt-panel">
-            <h3>SEMANTIC FILE RECONSTRUCTION</h3>
+            <h3>STRUCTURAL INDEX ANALYSIS</h3>
             <h1>📄 STRUCTURAL FILE PARSER</h1>
-            <div class="panel-desc">Upload core layout manual documentation blocks to interrogate underlying static values immediately.</div>
+            <div class="panel-desc">Process heavy layout documentation blueprints to inspect underlying data context sheets.</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -460,7 +460,7 @@ elif page == "📄 PDF Reader":
         pdf_reader = PyPDF2.PdfReader(io.BytesIO(uploaded_file.read()))
         for page_num in pdf_reader.pages:
             pdf_text += page_num.extract_text()
-        st.success("Configuration Verified: Target Document Repository Mounted.")
+        st.success("Target Content Dataset Synchronized Successfully.")
 
     if "pdf_messages" not in st.session_state:
         st.session_state.pdf_messages = []
@@ -475,7 +475,7 @@ elif page == "📄 PDF Reader":
         
         context_block = pdf_text if pdf_text else "No specific context dataset available."
         
-        with st.spinner("Extracting Paragraph Node Strings..."):
+        with st.spinner("Extracting Semantic Node Elements..."):
             response = client.chat.completions.create(
                 model="llama-3.3-70b-versatile",
                 messages=[
