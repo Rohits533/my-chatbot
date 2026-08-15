@@ -287,20 +287,9 @@ if not st.session_state.app_unlocked:
     st.stop()
 
 # =============================================================================
-# 5. GLOBAL HORIZONTAL BRAND SYSTEM RIBBON NAVIGATION & AMBIENT MUSIC ENGINE
+# 5. GLOBAL HORIZONTAL BRAND SYSTEM RIBBON NAVIGATION & SOUNDCLOUD WIDGET
 # =============================================================================
 
-if "music_playing" not in st.session_state:
-    st.session_state.music_playing = False
-
-# Callback handlers for music playback state toggle
-def toggle_play():
-    st.session_state.music_playing = True
-
-def toggle_pause():
-    st.session_state.music_playing = False
-
-# Render Brand Navigation Ribbon with Embedded Controls
 st.markdown("""
 <div class="brand-navigation-ribbon">
 <div class="brand-logo-cluster">
@@ -309,20 +298,18 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Render Controls and Portfolio Link in Columns within the top layout
-col_nav_controls, col_nav_btn = st.columns([1.2, 0.8])
-with col_nav_controls:
-    subcol_lbl, subcol_p, subcol_s = st.columns([1.5, 1, 1])
-    with subcol_lbl:
-        st.markdown("<div style='font-size: 11px; font-weight: 800; color: #ff5a1f; letter-spacing: 1px; padding-top: 10px; text-transform: uppercase;'>🎵 VIBE AUDIO:</div>", unsafe_allow_html=True)
-    with subcol_p:
-        st.button("▶ PLAY", on_click=toggle_play, use_container_width=True, key="audio_play_btn")
-    with subcol_s:
-        st.button("⏸ PAUSE", on_click=toggle_pause, use_container_width=True, key="audio_pause_btn")
+col_nav_widget, col_nav_btn = st.columns([1.5, 0.5])
+with col_nav_widget:
+    # Embedded SoundCloud Player Widget for the specific requested playlist
+    st.markdown("""
+    <iframe width="100%" height="115" scrolling="no" frameborder="no" allow="autoplay" 
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/k-g-h-4/sets/fears-to-fathom-truck-radio&color=%23ff5a1f&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
+    </iframe>
+    """, unsafe_allow_html=True)
 
 with col_nav_btn:
     st.markdown("""
-    <div style="text-align: right;">
+    <div style="text-align: right; padding-top: 15px;">
     <a style="
          display: inline-block;
          background-color: #ff5a1f;
@@ -341,14 +328,6 @@ with col_nav_btn:
     </div>
     </div>
     <div style="margin-bottom: 40px;"></div>
-    """, unsafe_allow_html=True)
-
-# Inject background audio element depending on playback state toggle
-if st.session_state.music_playing:
-    st.markdown("""
-    <audio autoplay loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
-    </audio>
     """, unsafe_allow_html=True)
 
 # Left Sidebar Instance Selectors
