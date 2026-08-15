@@ -216,13 +216,18 @@ h3 { font-size: 13px !important; font-weight: 800 !important; color: #ff5a1f !im
 /* High-End Dark Workspace Chat Logs Layout */
 .stChatMessage {
     background-color: #141722 !important;
-    color: #ffffff !important;
+    color: #ff5a1f !important;
     border: 1px solid rgba(255, 90, 31, 0.25) !important;
     border-radius: 0px !important;
     padding: 24px !important;
     margin-bottom: 18px !important;
     box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
     animation: fluidPanelSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Force all text inside chat messages to be orange */
+.stChatMessage p, .stChatMessage span, .stChatMessage div, .stChatMessage li, .stChatMessage label {
+    color: #ff5a1f !important;
 }
 
 /* Left Sidebar Global Panel Formats Intercept */
