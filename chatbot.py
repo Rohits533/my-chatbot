@@ -8,11 +8,9 @@ import io
 import time
 import datetime
 
-# =========================
-
-1. #CORE STREAMLIT INSTANCE INITIALIZATION & ARCHITECTURE OVERRIDES
-
-#=============================================================================
+# =============================================================================
+# 1. CORE STREAMLIT INSTANCE INITIALIZATION & ARCHITECTURE OVERRIDES
+# =============================================================================
 
 st.set_page_config(
 page_title="Rohit's AI Assistant",
@@ -21,11 +19,9 @@ layout="wide",
 initial_sidebar_state="expanded"
 )
 
-#=============================================================================
-
-2. BRAND STYLE CONFIGURATION METRICS (CHAINGPT LABS GLOWING LASER GRID)
-
-#=============================================================================
+# =============================================================================
+# 2. BRAND STYLE CONFIGURATION METRICS (CHAINGPT LABS GLOWING LASER GRID)
+# =============================================================================
 
 st.markdown("""
 <style>
@@ -244,11 +240,9 @@ section[data-testid="stSidebar"] .stRadio label p {
 
 """, unsafe_allow_html=True)
 
-#=============================================================================
-
-3. SECURE REPOSITORY BACKEND CLIENT INTEGRATIONS & TELEMETRY INITIALIZATION
-
-#=============================================================================
+# =============================================================================
+# 3. SECURE REPOSITORY BACKEND CLIENT INTEGRATIONS & TELEMETRY INITIALIZATION
+# =============================================================================
 
 api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
@@ -261,38 +255,33 @@ search = DuckDuckGoSearchRun()
 tools = [search]
 agent = create_react_agent(llm, tools)
 
-#=============================================================================
-
-4. APP SYSTEM RUNTIME ACCESS STATE GATEWAY
-
-#=============================================================================
+# =============================================================================
+# 4. APP SYSTEM RUNTIME ACCESS STATE GATEWAY
+# =============================================================================
 
 if "app_unlocked" not in st.session_state:
-st.session_state.app_unlocked = False
+    st.session_state.app_unlocked = False
 
-Render Gateway Landing Overlay Shell
-
+# Render Gateway Landing Overlay Shell
 if not st.session_state.app_unlocked:
-st.markdown("""
-<div class="telemetry-landing-wrapper">
-<div class="telemetry-tagline">INITIALIZING ACCESS INSTANCE PROTOCOLS</div>
-<div class="telemetry-title">KUBOOM CHATBOT</div>
-<div class="telemetry-subtitle">A chatbot made by Rohit</div>
-</div>
-""", unsafe_allow_html=True)
+    st.markdown("""
+    <div class="telemetry-landing-wrapper">
+    <div class="telemetry-tagline">INITIALIZING ACCESS INSTANCE PROTOCOLS</div>
+    <div class="telemetry-title">KUBOOM CHATBOT</div>
+    <div class="telemetry-subtitle">A chatbot made by Rohit</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-col_entry_l, col_entry_btn, col_entry_r = st.columns([1, 1.4, 1])
-with col_entry_btn:
-    if st.button("LAUNCH WORKSPACE ENGINES 🚀", use_container_width=True):
-        st.session_state.app_unlocked = True
-        st.rerun()
-st.stop()
+    col_entry_l, col_entry_btn, col_entry_r = st.columns([1, 1.4, 1])
+    with col_entry_btn:
+        if st.button("LAUNCH WORKSPACE ENGINES 🚀", use_container_width=True):
+            st.session_state.app_unlocked = True
+            st.rerun()
+    st.stop()
 
-=============================================================================
-
-5. GLOBAL HORIZONTAL BRAND SYSTEM RIBBON NAVIGATION
-
-=============================================================================
+# =============================================================================
+# 5. GLOBAL HORIZONTAL BRAND SYSTEM RIBBON NAVIGATION
+# =============================================================================
 
 st.markdown("""
 <div class="brand-navigation-ribbon">
@@ -319,299 +308,291 @@ st.markdown("""
 <div style="margin-bottom: 40px;"></div>
 """, unsafe_allow_html=True)
 
-Left Sidebar Instance Selectors
-
+# Left Sidebar Instance Selectors
 st.sidebar.markdown("<h3 style='margin-top:10px;'>⚙️ UTILITY FRAMEWORK</h3>", unsafe_allow_html=True)
 page = st.sidebar.radio("CHOOSE MODULE:", [
 "💬 Chat Matrix",
 "🔍 Realtime Web Crawler",
 "💻 Code Explainer",
-"📝 Examination Quiz",
+"📝 Quiz Matrix",
 "📄 Document Structural Parser"
 ])
 st.sidebar.markdown("---")
 st.sidebar.markdown("<div style='font-size:11px; color:#555e72; font-weight:800; text-transform:uppercase;'>COMPILED BY ROHIT • METAMATRIX ENGINE</div>", unsafe_allow_html=True)
 
-#=============================================================================
+# =============================================================================
+# 6. INSTANCE CONTROL SWITCH PROCESSING LOGIC
+# =============================================================================
 
-6. INSTANCE CONTROL SWITCH PROCESSING LOGIC
-
-#=============================================================================
-
-A. CORE CHAT ENGINE MODULE
-
+# A. CORE CHAT ENGINE MODULE
 if page == "💬 Chat Matrix":
-st.markdown("""
-<div class="neobrutalist-content-card">
-<h3>CORE CONVERSATIONAL MATRIX</h3>
-<h1>💬 CONVERSATIONAL ASSISTANT</h1>
-<div class="card-narrative-paragraph">Direct pipeline into raw Llama processing layers optimized for engineering concepts, advanced BTech topics, and framework tutorials.</div>
-</div>
-""", unsafe_allow_html=True)
+    st.markdown("""
+    <div class="neobrutalist-content-card">
+    <h3>CORE CONVERSATIONAL MATRIX</h3>
+    <h1>💬 CONVERSATIONAL ASSISTANT</h1>
+    <div class="card-narrative-paragraph">Direct pipeline into raw Llama processing layers optimized for engineering concepts, advanced BTech topics, and framework tutorials.</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-system_prompt = """You are Rohit's personal AI Study & Coding Assistant.
+    system_prompt = """You are Rohit's personal AI Study & Coding Assistant.
 
 You help with programming, AI/ML concepts, debugging code, and BTech subjects.
 You explain things simply and clearly, like a smart friend who knows everything about tech.
 You are encouraging, friendly, and always push the user to learn and grow.
 Keep responses concise and practical."""
 
-if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "system", "content": system_prompt}]
-
-# Structural Telemetry Layout Grid Row
-st.write("### 📊 Workspace Performance Records")
-col_stat1, col_stat2, col_stat3 = st.columns(3)
-with col_stat1:
-    st.metric(label="ACTIVE PROCESSING CORE", value="Llama 3.3 70B")
-with col_stat2:
-    st.metric(label="ACTIVE STORAGE FLOWS", value=f"{len(st.session_state.messages) - 1} Signals")
-with col_stat3:
-    if st.button("🗑️ PURGE MEMORY PACKETS", use_container_width=True):
+    if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": system_prompt}]
-        st.rerun()
 
-st.write("---")
-st.write("### 📟 Transaction Streams Log")
+    # Structural Telemetry Layout Grid Row
+    st.write("### 📊 Workspace Performance Records")
+    col_stat1, col_stat2, col_stat3 = st.columns(3)
+    with col_stat1:
+        st.metric(label="ACTIVE PROCESSING CORE", value="Llama 3.3 70B")
+    with col_stat2:
+        st.metric(label="ACTIVE STORAGE FLOWS", value=f"{len(st.session_state.messages) - 1} Signals")
+    with col_stat3:
+        if st.button("🗑️ PURGE MEMORY PACKETS", use_container_width=True):
+            st.session_state.messages = [{"role": "system", "content": system_prompt}]
+            st.rerun()
 
-# Render conversational logs
-for msg in st.session_state.messages:
-    if msg["role"] != "system":
+    st.write("---")
+    st.write("### 📟 Transaction Streams Log")
+
+    # Render conversational logs
+    for msg in st.session_state.messages:
+        if msg["role"] != "system":
+            st.chat_message(msg["role"]).write(msg["content"])
+
+    chat_matrix_input = st.chat_input("Enter message packet strings or curriculum queries...")
+    if chat_matrix_input:
+        st.session_state.messages.append({"role": "user", "content": chat_matrix_input})
+        st.chat_message("user").write(chat_matrix_input)
+        
+        with st.spinner("Processing Matrix Data..."):
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=st.session_state.messages
+            )
+        reply_string = response.choices[0].message.content
+
+        st.session_state.messages.append({"role": "assistant", "content": reply_string})
+        st.chat_message("assistant").write(reply_string)
+
+# B. AUTONOMOUS NETWORK SCRAPER SEARCH ENGINE MODULE
+elif page == "🔍 Realtime Web Crawler":
+    st.markdown("""
+    <div class="neobrutalist-content-card">
+    <h3>REAL-TIME EXPLORATION PROTOCOLS</h3>
+    <h1>🔍 WEB SEARCH MODULE</h1>
+    <div class="card-narrative-paragraph">Queries active distributed network databases to aggregate and index live software framework parameters instantly.</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    if "search_messages" not in st.session_state:
+        st.session_state.search_messages = []
+
+    # Local Metric Telemetry Tracking Dashboard Rows
+    st.write("### 📊 Live Scraper Telemetry Metrics")
+    col_crawl_1, col_crawl_2, col_crawl_3 = st.columns(3)
+    with col_crawl_1:
+        st.metric(label="EXTRACTION SEARCH CORE", value="DuckDuckGo Node")
+    with col_crawl_2:
+        st.metric(label="ACTIVE STREAM SESSIONS", value=f"{len(st.session_state.search_messages)} Buffers")
+    with col_crawl_3:
+        if st.button("🗑️ RESET LIVE CRAWL STREAM", use_container_width=True):
+            st.session_state.search_messages = []
+            st.rerun()
+
+    st.write("---")
+    st.write("### 📟 Live Web Stream")
+    for msg in st.session_state.search_messages:
         st.chat_message(msg["role"]).write(msg["content"])
 
-chat_matrix_input = st.chat_input("Enter message packet strings or curriculum queries...")
-if chat_matrix_input:
-    st.session_state.messages.append({"role": "user", "content": chat_matrix_input})
-    st.chat_message("user").write(chat_matrix_input)
-    
-    with st.spinner("Processing Matrix Data..."):
-        response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=st.session_state.messages
-        )
-    reply_string = response.choices[0].message.content
-
-    st.session_state.messages.append({"role": "assistant", "content": reply_string})
-    st.chat_message("assistant").write(reply_string)
-
-B. AUTONOMOUS NETWORK SCRAPER SEARCH ENGINE MODULE
-
-elif page == "🔍 Realtime Web Crawler":
-st.markdown("""
-<div class="neobrutalist-content-card">
-<h3>REAL-TIME EXPLORATION PROTOCOLS</h3>
-<h1>🔍 WEB SEARCH MODULE</h1>
-<div class="card-narrative-paragraph">Queries active distributed network databases to aggregate and index live software framework parameters instantly.</div>
-</div>
-""", unsafe_allow_html=True)
-
-if "search_messages" not in st.session_state:
-    st.session_state.search_messages = []
-
-# Local Metric Telemetry Tracking Dashboard Rows
-st.write("### 📊 Live Scraper Telemetry Metrics")
-col_crawl_1, col_crawl_2, col_crawl_3 = st.columns(3)
-with col_crawl_1:
-    st.metric(label="EXTRACTION SEARCH CORE", value="DuckDuckGo Node")
-with col_crawl_2:
-    st.metric(label="ACTIVE STREAM SESSIONS", value=f"{len(st.session_state.search_messages)} Buffers")
-with col_crawl_3:
-    if st.button("🗑️ RESET LIVE CRAWL STREAM", use_container_width=True):
-        st.session_state.search_messages = []
-        st.rerun()
-
-st.write("---")
-st.write("### 📟 Live Web Stream")
-for msg in st.session_state.search_messages:
-    st.chat_message(msg["role"]).write(msg["content"])
-
-crawler_query_input = st.chat_input("Input focus query string fields for autonomous crawl index...")
-if crawler_query_input:
-    st.session_state.search_messages.append({"role": "user", "content": crawler_query_input})
-    st.chat_message("user").write(crawler_query_input)
-    
-    with st.spinner("Deploying Extraction Agents Across Networks..."):
-        response = agent.invoke({"messages": [{"role": "user", "content": crawler_query_input}]})
-        extracted_reply = response["messages"][-1].content
+    crawler_query_input = st.chat_input("Input focus query string fields for autonomous crawl index...")
+    if crawler_query_input:
+        st.session_state.search_messages.append({"role": "user", "content": crawler_query_input})
+        st.chat_message("user").write(crawler_query_input)
         
-    st.session_state.search_messages.append({"role": "assistant", "content": extracted_reply})
-    st.chat_message("assistant").write(extracted_reply)
+        with st.spinner("Deploying Extraction Agents Across Networks..."):
+            response = agent.invoke({"messages": [{"role": "user", "content": crawler_query_input}]})
+            extracted_reply = response["messages"][-1].content
+            
+        st.session_state.search_messages.append({"role": "assistant", "content": extracted_reply})
+        st.chat_message("assistant").write(extracted_reply)
 
-C. RUNTIME CODE REFACTOR ANALYSIS LAB
-
+# C. RUNTIME CODE REFACTOR ANALYSIS LAB
 elif page == "💻 Code Explainer":
-st.markdown("""
-<div class="neobrutalist-content-card">
-<h3>LOGIC DECONSTRUCTION FRAMEWORK</h3>
-<h1>💻 CODE ANALYSIS NODE</h1>
-<div class="card-narrative-paragraph">Paste system scripts to evaluate space complexities, identify structural bugs, or generate optimal assembly refactors.</div>
-</div>
-""", unsafe_allow_html=True)
+    st.markdown("""
+    <div class="neobrutalist-content-card">
+    <h3>LOGIC DECONSTRUCTION FRAMEWORK</h3>
+    <h1>💻 CODE ANALYSIS NODE</h1>
+    <div class="card-narrative-paragraph">Paste system scripts to evaluate space complexities, identify structural bugs, or generate optimal assembly refactors.</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-# Architectural Telemetry Dashboard Rows
-st.write("### 📊 Compiler Diagnostic Parameters")
-col_code_1, col_code_2, col_code_3 = st.columns(3)
-with col_code_1:
-    st.metric(label="PARSER COMPILER ENGINE", value="Llama-3.3-70B")
-with col_code_2:
-    st.metric(label="MAX COMPUTE LIMIT", value="8,192 Tokens")
-with col_code_3:
-    st.metric(label="SYSTEM LATENCY STATUS", value="OPTIMAL // 0.02s")
+    # Architectural Telemetry Dashboard Rows
+    st.write("### 📊 Compiler Diagnostic Parameters")
+    col_code_1, col_code_2, col_code_3 = st.columns(3)
+    with col_code_1:
+        st.metric(label="PARSER COMPILER ENGINE", value="Llama-3.3-70B")
+    with col_code_2:
+        st.metric(label="MAX COMPUTE LIMIT", value="8,192 Tokens")
+    with col_code_3:
+        st.metric(label="SYSTEM LATENCY STATUS", value="OPTIMAL // 0.02s")
 
-st.write("---")
-st.write("### 📟 Source Script Array Buffer Input")
-source_script_buffer = st.text_area("", height=220, placeholder="def compute_matrix():\n    return 'Execution Array Calibrated'")
+    st.write("---")
+    st.write("### 📟 Source Script Array Buffer Input")
+    source_script_buffer = st.text_area("", height=220, placeholder="def compute_matrix():\n    return 'Execution Array Calibrated'")
 
-col_btn_1, col_btn_2, col_btn_3 = st.columns(3)
-with col_btn_1:
-    trigger_explain = st.button("📖 EXPLAIN ARCHITECTURE", use_container_width=True)
-with col_btn_2:
-    trigger_debug = st.button("🐛 AUDIT SYNTAX FAULTS", use_container_width=True)
-with col_btn_3:
-    trigger_improve = st.button("⚡ OPTIMIZE PERFORMANCE", use_container_width=True)
+    col_btn_1, col_btn_2, col_btn_3 = st.columns(3)
+    with col_btn_1:
+        trigger_explain = st.button("📖 EXPLAIN ARCHITECTURE", use_container_width=True)
+    with col_btn_2:
+        trigger_debug = st.button("🐛 AUDIT SYNTAX FAULTS", use_container_width=True)
+    with col_btn_3:
+        trigger_improve = st.button("⚡ OPTIMIZE PERFORMANCE", use_container_width=True)
 
-if source_script_buffer:
-    if trigger_explain:
-        with st.spinner("Mapping Call Trees..."):
-            response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[
-                    {"role": "system", "content": "You are an expert coding assistant. Explain code simply and clearly."},
-                    {"role": "user", "content": f"Explain this code step by step:\n\n{source_script_buffer}"}
-                ]
-            )
-        st.markdown('<div class="neobrutalist-content-card"><h3>📖 RECONSTRUCTED LOGIC EXPLANATION</h3>', unsafe_allow_html=True)
-        st.write(response.choices.message.content)
-        st.markdown('</div>', unsafe_allow_html=True)
+    if source_script_buffer:
+        if trigger_explain:
+            with st.spinner("Mapping Call Trees..."):
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                        {"role": "system", "content": "You are an expert coding assistant. Explain code simply and clearly."},
+                        {"role": "user", "content": f"Explain this code step by step:\n\n{source_script_buffer}"}
+                    ]
+                )
+            st.markdown('<div class="neobrutalist-content-card"><h3>📖 RECONSTRUCTED LOGIC EXPLANATION</h3>', unsafe_allow_html=True)
+            st.write(response.choices[0].message.content)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-    if trigger_debug:
-        with st.spinner("Scanning for Runtime Exceptions..."):
-            response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[
-                    {"role": "system", "content": "You are an expert debugger. Find bugs and errors in code."},
-                    {"role": "user", "content": f"Find any bugs or errors in this code:\n\n{source_script_buffer}"}
-                ]
-            )
-        st.markdown('<div class="neobrutalist-content-card"><h3>🐛 DIAGNOSTIC CONTEXT LOGS</h3>', unsafe_allow_html=True)
-        st.write(response.choices.message.content)
-        st.markdown('</div>', unsafe_allow_html=True)
+        if trigger_debug:
+            with st.spinner("Scanning for Runtime Exceptions..."):
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                        {"role": "system", "content": "You are an expert debugger. Find bugs and errors in code."},
+                        {"role": "user", "content": f"Find any bugs or errors in this code:\n\n{source_script_buffer}"}
+                    ]
+                )
+            st.markdown('<div class="neobrutalist-content-card"><h3>🐛 DIAGNOSTIC CONTEXT LOGS</h3>', unsafe_allow_html=True)
+            st.write(response.choices[0].message.content)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-    if trigger_improve:
-        with st.spinner("Refactoring Algorithmic Arrays..."):
-            response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[
-                    {"role": "system", "content": "You are an expert software engineer. Suggest improvements to code."},
-                    {"role": "user", "content": f"Suggest improvements for this code:\n\n{source_script_buffer}"}
-                ]
-            )
-        st.markdown('<div class="neobrutalist-content-card"><h3>⚡ PROPOSED SYSTEM OUTLINES</h3>', unsafe_allow_html=True)
-        st.write(response.choices.message.content)
-        st.markdown('</div>', unsafe_allow_html=True)
-else:
-    st.info("ℹ) Supply standard target program code into the matrix buffer text area box above to activate analytics.")
+        if trigger_improve:
+            with st.spinner("Refactoring Algorithmic Arrays..."):
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                        {"role": "system", "content": "You are an expert software engineer. Suggest improvements to code."},
+                        {"role": "user", "content": f"Suggest improvements for this code:\n\n{source_script_buffer}"}
+                    ]
+                )
+            st.markdown('<div class="neobrutalist-content-card"><h3>⚡ PROPOSED SYSTEM OUTLINES</h3>', unsafe_allow_html=True)
+            st.write(response.choices[0].message.content)
+            st.markdown('</div>', unsafe_allow_html=True)
+    else:
+        st.info("ℹ️ Supply standard target program code into the matrix buffer text area box above to activate analytics.")
 
-D. TOPIC COMPREHENSION ASSESSMENT CONFIGURATOR MODULE
-
+# D. TOPIC COMPREHENSION ASSESSMENT CONFIGURATOR MODULE
 elif page == "📝 Quiz Matrix":
-st.markdown("""
-<div class="neobrutalist-content-card">
-<h3>COMPILING COMPREHENSION METRICS</h3>
-<h1>📝 MCQ EVALUATION MATRIX</h1>
-<div class="card-narrative-paragraph">Generate multiple choice curriculum training sets dynamically from specified skill domains.</div>
-</div>
-""", unsafe_allow_html=True)
+    st.markdown("""
+    <div class="neobrutalist-content-card">
+    <h3>COMPILING COMPREHENSION METRICS</h3>
+    <h1>📝 MCQ EVALUATION MATRIX</h1>
+    <div class="card-narrative-paragraph">Generate multiple choice curriculum training sets dynamically from specified skill domains.</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-# Local Telemetry Dashboard Rows
-st.write("### 📊 Quiz Evaluation Metrics")
-col_quiz_1, col_code_2, col_code_3 = st.columns(3)
-with col_quiz_1:
-    st.metric(label="EVALUATION COMPILER", value="Llama-3.3-70B")
-with col_code_2:
-    st.metric(label="TARGET GRADING SYSTEM", value="BTech / Bounded")
-with col_code_3:
-    st.metric(label="SCHEMA COMPLIANCE STATUS", value="100% SECURE")
+    # Local Telemetry Dashboard Rows
+    st.write("### 📊 Quiz Evaluation Metrics")
+    col_quiz_1, col_code_2, col_code_3 = st.columns(3)
+    with col_quiz_1:
+        st.metric(label="EVALUATION COMPILER", value="Llama-3.3-70B")
+    with col_code_2:
+        st.metric(label="TARGET GRADING SYSTEM", value="BTech / Bounded")
+    with col_code_3:
+        st.metric(label="SCHEMA COMPLIANCE STATUS", value="100% SECURE")
 
-st.write("---")
-st.write("### ⚙️ Evaluation Matrix Parameters")
-target_subject_topic = st.text_input("Declare Target Subject Focus Topic Domain Tree:", placeholder="e.g. Backpropagation Math Operations")
-magnitude_questions = st.slider("Quantity of Target Examination Nodes:", 3, 10, 5)
+    st.write("---")
+    st.write("### ⚙️ Evaluation Matrix Parameters")
+    target_subject_topic = st.text_input("Declare Target Subject Focus Topic Domain Tree:", placeholder="e.g. Backpropagation Math Operations")
+    magnitude_questions = st.slider("Quantity of Target Examination Nodes:", 3, 10, 5)
 
-if st.button("🎯 SYNTHESIZE ASSESSMENT OBJECTS", use_container_width=True):
-    if target_subject_topic:
-        with st.spinner("Formulating Framework Schematics..."):
-            response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[
-                    {"role": "system", "content": "You are an expert teacher. Generate clear MCQ questions with 4 options and correct answers."},
-                    {"role": "user", "content": f"Generate {magnitude_questions} MCQ questions about {target_subject_topic}. Format each question with 4 options (A, B, C, D) and mark the correct answer at the end."}
-                ]
-            )
-        st.markdown('<div class="neobrutalist-content-card"><h3>🎯 TARGET GENERATED EVALUATION RUNTIMES</h3>', unsafe_allow_html=True)
-        st.write(response.choices.message.content)
-        st.markdown('</div>', unsafe_allow_html=True)
-    else:
-        st.warning("Missing Configuration Variable: Input focus topic domain branch parameters first.")
+    if st.button("🎯 SYNTHESIZE ASSESSMENT OBJECTS", use_container_width=True):
+        if target_subject_topic:
+            with st.spinner("Formulating Framework Schematics..."):
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                        {"role": "system", "content": "You are an expert teacher. Generate clear MCQ questions with 4 options and correct answers."},
+                        {"role": "user", "content": f"Generate {magnitude_questions} MCQ questions about {target_subject_topic}. Format each question with 4 options (A, B, C, D) and mark the correct answer at the end."}
+                    ]
+                )
+            st.markdown('<div class="neobrutalist-content-card"><h3>🎯 TARGET GENERATED EVALUATION RUNTIMES</h3>', unsafe_allow_html=True)
+            st.write(response.choices[0].message.content)
+            st.markdown('</div>', unsafe_allow_html=True)
+        else:
+            st.warning("Missing Configuration Variable: Input focus topic domain branch parameters first.")
 
-E. DOCUMENT STRUCTURAL TEXT PARSER LAB
-
+# E. DOCUMENT STRUCTURAL TEXT PARSER LAB
 elif page == "📄 Document Structural Parser":
-st.markdown("""
-<div class="neobrutalist-content-card">
-<h3>SEMANTIC BLUEPRINT TEXT PROCESSING</h3>
-<h1>📄 STRUCTURAL FILE PARSER</h1>
-<div class="card-narrative-paragraph">Upload heavy configuration documentation packages or textbook sheets to map text values and search parameters instantly.</div>
-</div>
-""", unsafe_allow_html=True)
+    st.markdown("""
+    <div class="neobrutalist-content-card">
+    <h3>SEMANTIC BLUEPRINT TEXT PROCESSING</h3>
+    <h1>📄 STRUCTURAL FILE PARSER</h1>
+    <div class="card-narrative-paragraph">Upload heavy configuration documentation packages or textbook sheets to map text values and search parameters instantly.</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-# Structural Telemetry Layout Grid Row
-st.write("### 📊 Document Mounting Metrics")
-col_pdf_1, col_pdf_2, col_pdf_3 = st.columns(3)
-with col_pdf_1:
-    st.metric(label="PARSER BUFFER TYPE", value="PyPDF2 Engine")
-with col_pdf_2:
-    st.metric(label="DATA INPUT STATUS", value="READY FOR MOUNT")
-with col_pdf_3:
-    if st.button("🗑️ PURGE DOCUMENT CONTEXT", use_container_width=True):
+    # Structural Telemetry Layout Grid Row
+    st.write("### 📊 Document Mounting Metrics")
+    col_pdf_1, col_pdf_2, col_pdf_3 = st.columns(3)
+    with col_pdf_1:
+        st.metric(label="PARSER BUFFER TYPE", value="PyPDF2 Engine")
+    with col_pdf_2:
+        st.metric(label="DATA INPUT STATUS", value="READY FOR MOUNT")
+    with col_pdf_3:
+        if st.button("🗑️ PURGE DOCUMENT CONTEXT", use_container_width=True):
+            st.session_state.pdf_messages = []
+            st.rerun()
+
+    st.write("---")
+    st.write("### 📁 Archive Data Storage Mount")
+    uploaded_pdf_asset = st.file_uploader("Upload Target Technical PDF Schematic Asset:", type="pdf")
+    final_extracted_pdf_text = ""
+
+    if uploaded_pdf_asset:
+        pdf_file_reader_instance = PyPDF2.PdfReader(io.BytesIO(uploaded_pdf_asset.read()))
+        for page_index_num in pdf_file_reader_instance.pages:
+            final_extracted_pdf_text += page_index_num.extract_text() or ""
+        st.success("Target Content Dataset Mounted and Verified Successfully.")
+
+    if "pdf_messages" not in st.session_state:
         st.session_state.pdf_messages = []
-        st.rerun()
 
-st.write("---")
-st.write("### 📁 Archive Data Storage Mount")
-uploaded_pdf_asset = st.file_uploader("Upload Target Technical PDF Schematic Asset:", type="pdf")
-final_extracted_pdf_text = ""
+    st.write("---")
+    st.write("### 📟 Context Interaction Console")
+    for msg in st.session_state.pdf_messages:
+        st.chat_message(msg["role"]).write(msg["content"])
 
-if uploaded_pdf_asset:
-    pdf_file_reader_instance = PyPDF2.PdfReader(io.BytesIO(uploaded_pdf_asset.read()))
-    for page_index_num in pdf_file_reader_instance.pages:
-        final_extracted_pdf_text += page_index_num.extract_text() or ""
-    st.success("Target Content Dataset Mounted and Verified Successfully.")
-
-if "pdf_messages" not in st.session_state:
-    st.session_state.pdf_messages = []
-
-st.write("---")
-st.write("### 📟 Context Interaction Console")
-for msg in st.session_state.pdf_messages:
-    st.chat_message(msg["role"]).write(msg["content"])
-
-pdf_user_query_input = st.chat_input("Query structural document fields...")
-if pdf_user_query_input:
-    if not final_extracted_pdf_text.strip():
-        st.warning("Data Missing Error: Please upload a valid structural manual PDF target asset first.")
-    else:
-        st.session_state.pdf_messages.append({"role": "user", "content": pdf_user_query_input})
-        st.chat_message("user").write(pdf_user_query_input)
-        
-        with st.spinner("Extracting Semantic Node Elements..."):
-            response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[
-                    {"role": "system", "content": f"Answer the user's question accurately using only the provided document text context.\n\nContext:\n{final_extracted_pdf_text}"},
-                    *st.session_state.pdf_messages
-                ]
-            )
-        reply_data_content = response.choices.message.content
-        st.session_state.pdf_messages.append({"role": "assistant", "content": reply_data_content})
-        st.chat_message("assistant").write(reply_data_content)
+    pdf_user_query_input = st.chat_input("Query structural document fields...")
+    if pdf_user_query_input:
+        if not final_extracted_pdf_text.strip():
+            st.warning("Data Missing Error: Please upload a valid structural manual PDF target asset first.")
+        else:
+            st.session_state.pdf_messages.append({"role": "user", "content": pdf_user_query_input})
+            st.chat_message("user").write(pdf_user_query_input)
+            
+            with st.spinner("Extracting Semantic Node Elements..."):
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                        {"role": "system", "content": f"Answer the user's question accurately using only the provided document text context.\n\nContext:\n{final_extracted_pdf_text}"},
+                        *st.session_state.pdf_messages
+                    ]
+                )
+            reply_data_content = response.choices[0].message.content
+            st.session_state.pdf_messages.append({"role": "assistant", "content": reply_data_content})
+            st.chat_message("assistant").write(reply_data_content)
