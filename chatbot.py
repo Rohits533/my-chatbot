@@ -8,208 +8,610 @@ import io
 import time
 import datetime
 
-# =============================================================================
-# 1. CORE STREAMLIT INSTANCE INITIALIZATION & ARCHITECTURE OVERRIDES
-# =============================================================================
+=============================================================================
+
+1. CORE STREAMLIT INSTANCE INITIALIZATION & ARCHITECTURE OVERRIDES
+
+=============================================================================
+
 st.set_page_config(
-    page_title="Rohit's AI Assistant",
-    page_icon="🤖",
-    layout="wide",
-    initial_sidebar_state="expanded"
+page_title="Rohit's AI Assistant",
+page_icon="🤖",
+layout="wide",
+initial_sidebar_state="expanded"
 )
 
-# =============================================================================
-# 2. BRAND STYLE CONFIGURATION METRICS (CHAINGPT LABS GLOWING LASER GRID)
-# =============================================================================
+=============================================================================
+
+2. BRAND STYLE CONFIGURATION METRICS (CHAINGPT LABS GLOWING LASER GRID)
+
+=============================================================================
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+/* Advanced Accelerated Keyframe CSS Animation Engine */
+@keyframes entranceZoomFade {
+0% { opacity: 0; transform: scale(0.95) translateY(40px); filter: blur(12px); }
+50% { opacity: 0.4; filter: blur(6px); }
+100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+@keyframes fluidPanelSlideIn {
+0% { opacity: 0; transform: translateY(30px); filter: blur(6px); }
+100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes orangeLaserScroll {
+0% { background-position: 0px 0px, 0px 0px; }
+100% { background-position: 120px 120px, -60px 60px; }
+}
+@keyframes matrixPulseGlow {
+0% { border-color: rgba(255, 90, 31, 0.2); box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+50% { border-color: rgba(255, 90, 31, 0.6); box-shadow: 0 4px 30px rgba(255, 90, 31, 0.15); }
+100% { border-color: rgba(255, 90, 31, 0.2); box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+}
 
-:root {
-  --bg:#07090f; --panel:rgba(17,21,32,.84); --panel2:rgba(22,27,41,.94);
-  --border:rgba(255,255,255,.08); --purple:#8b5cf6; --blue:#3b82f6;
-  --text:#f7f8fc; --muted:#8d96aa;
+/* Core Structural Architecture Canvas Blueprint Grid Background */
+.stApp {
+    background-color: #0d0f14 !important;
+    background-image: 
+        linear-gradient(to right, rgba(255, 90, 31, 0.12) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(255, 90, 31, 0.12) 2px, transparent 2px),
+        radial-gradient(circle at 50% 50%, rgba(255, 90, 31, 0.05) 0%, transparent 80%) !important;
+    background-size: 60px 60px, 60px 60px, 100% 100% !important;
+    color: #e2e8f0 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif !important;
+    animation: orangeLaserScroll 20s linear infinite !important;
 }
-*{box-sizing:border-box}
-html,body,[class*="css"]{font-family:"DM Sans",-apple-system,BlinkMacSystemFont,sans-serif}
-.stApp{
-  background:radial-gradient(circle at 12% 0%,rgba(139,92,246,.14),transparent 30%),
-             radial-gradient(circle at 90% 12%,rgba(59,130,246,.10),transparent 28%),
-             linear-gradient(180deg,#080a11,#060810);color:var(--text)
+
+/* Gateway Landing Component Framework Styling */
+.telemetry-landing-wrapper {
+    text-align: center;
+    margin-top: 10vh;
+    padding: 60px;
+    background-color: rgba(13, 15, 20, 0.9);
+    border: 2px solid rgba(255, 90, 31, 0.3);
+    border-radius: 0px;
+    backdrop-filter: blur(15px);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 50px rgba(255, 90, 31, 0.2);
+    position: relative;
+    animation: entranceZoomFade 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-.stApp:before{
-  content:"";position:fixed;inset:0;pointer-events:none;opacity:.45;
-  background-image:linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);
-  background-size:56px 56px;mask-image:linear-gradient(to bottom,black,transparent 80%)
+.telemetry-landing-wrapper::before {
+    content: ''; position: absolute; top: -5px; left: -5px; width: 10px; height: 10px; background-color: #ff5a1f;
 }
-section[data-testid="stSidebar"]{background:rgba(8,10,17,.96)!important;border-right:1px solid var(--border)!important}
-section[data-testid="stSidebar"]>div{padding:22px 15px}
-section[data-testid="stSidebar"] .stRadio>div{gap:6px}
-section[data-testid="stSidebar"] .stRadio label{border:1px solid transparent;border-radius:12px;padding:9px 11px;transition:.2s}
-section[data-testid="stSidebar"] .stRadio label:hover{background:rgba(255,255,255,.04);border-color:var(--border)}
-h1,h2,h3{font-family:"Space Grotesk",sans-serif!important;text-transform:none!important;letter-spacing:-.03em!important}
-h1{font-size:42px!important} h2{font-size:28px!important}
-h3{font-size:12px!important;letter-spacing:.12em!important;color:#a78bfa!important}
-button,[data-testid="stButton"] button{
-  border-radius:11px!important;border:1px solid rgba(255,255,255,.1)!important;
-  background:linear-gradient(135deg,#8b5cf6,#6366f1)!important;color:#fff!important;
-  font-weight:700!important;min-height:44px;transition:.18s!important
+.telemetry-landing-wrapper::after {
+    content: ''; position: absolute; bottom: -5px; right: -5px; width: 10px; height: 10px; background-color: #ff5a1f;
 }
-button:hover,[data-testid="stButton"] button:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(99,102,241,.25)!important}
-.stTextInput input,.stTextArea textarea{
-  background:rgba(11,14,23,.92)!important;color:#fff!important;
-  border:1px solid var(--border)!important;border-radius:12px!important;padding:13px 15px!important
+.telemetry-tagline {
+    font-size: 14px;
+    font-weight: 800;
+    color: #ff5a1f;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
 }
-.stTextInput input:focus,.stTextArea textarea:focus{border-color:rgba(139,92,246,.5)!important;box-shadow:0 0 0 3px rgba(139,92,246,.1)!important}
-[data-testid="stChatMessage"]{
-  background:rgba(15,19,29,.76)!important;border:1px solid var(--border)!important;
-  border-radius:16px!important;padding:16px 18px!important;margin:10px 0!important
+.telemetry-title {
+    font-size: 96px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+    line-height: 0.9;
+    margin-bottom: 15px;
 }
-[data-testid="stMetric"]{
-  background:linear-gradient(145deg,rgba(20,25,38,.9),rgba(13,16,26,.86));
-  border:1px solid var(--border);border-radius:15px;padding:16px
+.telemetry-subtitle {
+    font-size: 19px;
+    font-weight: 600;
+    color: #8fa0be;
+    letter-spacing: 1px;
+    margin-bottom: 50px;
 }
-[data-testid="stMetricLabel"]{color:var(--muted)!important}
-[data-testid="stMetricValue"]{color:#fff!important;font-family:"Space Grotesk",sans-serif}
-div[data-testid="stFileUploader"]{background:rgba(13,17,27,.8);border:1px dashed rgba(139,92,246,.35);border-radius:14px;padding:8px}
-.topbar{
-  display:flex;justify-content:space-between;align-items:center;padding:14px 18px;margin-bottom:28px;
-  border:1px solid var(--border);border-radius:16px;background:rgba(10,13,21,.76);backdrop-filter:blur(18px)
-}
-.brand{display:flex;align-items:center;gap:11px}.brand-mark{
-  width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
-  background:linear-gradient(135deg,#8b5cf6,#3b82f6);box-shadow:0 8px 28px rgba(99,102,241,.25)
-}
-.brand-name{font-family:"Space Grotesk";font-weight:700}.brand-sub{color:var(--muted);font-size:11px}
-.status{display:flex;align-items:center;gap:8px;color:#aeb6c8;font-size:12px;border:1px solid var(--border);padding:8px 11px;border-radius:999px}
-.dot{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 12px #34d399}
-.hero{
-  padding:54px 34px;border:1px solid var(--border);border-radius:24px;
-  background:radial-gradient(circle at 80% 20%,rgba(99,102,241,.17),transparent 30%),
-             linear-gradient(145deg,rgba(19,24,38,.94),rgba(10,13,22,.92));
-  box-shadow:0 30px 90px rgba(0,0,0,.25);text-align:center
-}
-.eyebrow{color:#a78bfa;font-weight:700;letter-spacing:.16em;font-size:11px;text-transform:uppercase}
-.workspace{
-  border:1px solid var(--border);border-radius:20px;background:var(--panel);
-  padding:25px;box-shadow:0 20px 60px rgba(0,0,0,.15)
-}
-.sidebar-brand{padding:4px 7px 20px;border-bottom:1px solid var(--border);margin-bottom:16px}
-.sidebar-brand-title{font-family:"Space Grotesk";font-size:18px;font-weight:700}
-.sidebar-brand-copy{color:#737d91;font-size:11px;margin-top:4px}
-.footer-note{text-align:center;color:#555e70;font-size:11px;padding:28px 0}
 </style>
-""", unsafe_allow_html=True)
 
-# =============================================================================
-# 3. PREMIUM PRODUCT UI COMPONENT SYSTEM
-# =============================================================================
+""", unsafe_allow_html=True)
 st.markdown("""
 <style>
-.block-container{max-width:1450px!important;padding-top:1.2rem!important}
-[data-testid="stAppViewContainer"]{overflow-x:hidden}
-::-webkit-scrollbar{width:7px;height:7px}
-::-webkit-scrollbar-track{background:#080a10}
-::-webkit-scrollbar-thumb{background:#30374a;border-radius:20px}
-html,body,[class*="css"]{font-family:"DM Sans",-apple-system,BlinkMacSystemFont,sans-serif}
-.fade-up{animation:fadeUp .55s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.glow-line{height:1px;width:100%;margin:22px 0;background:linear-gradient(90deg,transparent,rgba(139,92,246,.55),transparent)}
-section[data-testid="stSidebar"]{background:rgba(8,10,17,.97)!important;border-right:1px solid rgba(255,255,255,.07)!important}
-section[data-testid="stSidebar"]>div{padding:22px 15px}
-section[data-testid="stSidebar"] .stRadio label{border:1px solid transparent;border-radius:12px;padding:9px 11px;transition:.2s}
-section[data-testid="stSidebar"] .stRadio label:hover{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08)}
-h1,h2,h3{font-family:"Space Grotesk",sans-serif!important;text-transform:none!important;letter-spacing:-.03em!important}
-h1{font-size:42px!important}h2{font-size:28px!important}
-h3{font-size:12px!important;letter-spacing:.12em!important;color:#a78bfa!important}
-button,[data-testid="stButton"] button{border-radius:11px!important;border:1px solid rgba(255,255,255,.1)!important;background:linear-gradient(135deg,#8b5cf6,#6366f1)!important;color:#fff!important;font-weight:700!important;min-height:44px;transition:.18s!important}
-button:hover,[data-testid="stButton"] button:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(99,102,241,.25)!important}
-.stTextInput input,.stTextArea textarea{background:rgba(11,14,23,.92)!important;color:#fff!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:12px!important;padding:13px 15px!important}
-.stTextInput input:focus,.stTextArea textarea:focus{border-color:rgba(139,92,246,.5)!important;box-shadow:0 0 0 3px rgba(139,92,246,.1)!important}
-[data-testid="stChatMessage"]{background:rgba(15,19,29,.76)!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:16px!important;padding:16px 18px!important;margin:10px 0!important}
-[data-testid="stMetric"]{background:linear-gradient(145deg,rgba(20,25,38,.9),rgba(13,16,26,.86));border:1px solid rgba(255,255,255,.08);border-radius:15px;padding:16px}
-[data-testid="stMetricLabel"]{color:#8d96aa!important}[data-testid="stMetricValue"]{color:#fff!important;font-family:"Space Grotesk",sans-serif}
-div[data-testid="stFileUploader"]{background:rgba(13,17,27,.8);border:1px dashed rgba(139,92,246,.35);border-radius:14px;padding:8px}
-.product-topbar{min-height:62px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:10px 14px 10px 16px;margin-bottom:24px;border:1px solid rgba(255,255,255,.075);border-radius:17px;background:rgba(10,13,21,.78);backdrop-filter:blur(20px);box-shadow:0 14px 45px rgba(0,0,0,.16)}
-.product-brand{display:flex;align-items:center;gap:11px}.product-logo{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,#8b5cf6,#4f46e5);box-shadow:0 8px 28px rgba(99,102,241,.26)}
-.product-name{font-family:"Space Grotesk";font-size:15px;font-weight:700;color:#fff}.product-desc{color:#687287;font-size:10px;margin-top:2px}
-.top-actions{display:flex;align-items:center;gap:8px}.top-chip{border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025);color:#8791a5;border-radius:999px;padding:7px 10px;font-size:10px}.online-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399;margin-right:5px}
-.dashboard-hero{position:relative;overflow:hidden;padding:48px 42px;border-radius:25px;border:1px solid rgba(255,255,255,.08);background:radial-gradient(circle at 86% 15%,rgba(139,92,246,.23),transparent 26%),radial-gradient(circle at 72% 100%,rgba(59,130,246,.12),transparent 30%),linear-gradient(135deg,rgba(20,25,40,.96),rgba(9,12,20,.96));box-shadow:0 28px 90px rgba(0,0,0,.22)}
-.hero-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:999px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.22);color:#c4b5fd;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-.hero-title{font-family:"Space Grotesk";font-weight:700;letter-spacing:-.055em;font-size:clamp(43px,6vw,72px);line-height:.98;color:#fff;margin-top:18px}
-.hero-gradient{background:linear-gradient(90deg,#fff 10%,#c4b5fd 48%,#60a5fa 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero-copy{max-width:650px;color:#8993a8;font-size:15px;line-height:1.7;margin-top:16px}.hero-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:25px}.hero-meta span{border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025);border-radius:9px;padding:7px 10px;color:#858fa4;font-size:10px}
-.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}.feature-card{min-height:145px;padding:20px;border-radius:17px;border:1px solid rgba(255,255,255,.07);background:linear-gradient(145deg,rgba(18,23,36,.9),rgba(11,14,23,.86));transition:.2s}
-.feature-card:hover{transform:translateY(-3px);border-color:rgba(139,92,246,.3);box-shadow:0 16px 45px rgba(0,0,0,.18)}
-.feature-icon{width:35px;height:35px;border-radius:10px;display:grid;place-items:center;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.18);font-size:16px}.feature-title{font-family:"Space Grotesk";font-size:14px;font-weight:700;margin-top:15px;color:#f2f4f9}.feature-copy{color:#707b90;font-size:11px;line-height:1.55;margin-top:5px}
-.workspace-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin:8px 0 18px}.workspace-kicker{color:#a78bfa;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.workspace-title{font-family:"Space Grotesk";font-size:29px;font-weight:700;color:#fff;letter-spacing:-.04em;margin-top:5px}.workspace-copy{color:#747f94;font-size:12px;line-height:1.55;margin-top:5px;max-width:700px}.workspace-badge{border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025);color:#8d97aa;border-radius:999px;padding:7px 10px;font-size:9px;white-space:nowrap}
-.command-bar{display:flex;align-items:center;gap:10px;padding:11px 13px;margin:14px 0;border:1px solid rgba(255,255,255,.07);border-radius:13px;background:rgba(9,12,19,.75)}.command-key{padding:5px 7px;border-radius:6px;background:#171c28;border:1px solid #252b3a;color:#697489;font-size:9px;font-family:monospace}.command-text{color:#778297;font-size:11px}
-.chat-empty{min-height:280px;display:flex;align-items:center;justify-content:center;text-align:center;border:1px dashed rgba(255,255,255,.08);border-radius:18px;background:rgba(8,11,18,.45)}
-.editor-head{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border:1px solid rgba(255,255,255,.07);border-bottom:0;border-radius:13px 13px 0 0;background:#0b0e16}.editor-dots{display:flex;gap:5px}.editor-dot{width:7px;height:7px;border-radius:50%;background:#303747}.editor-file{color:#6e788b;font-size:10px;font-family:monospace}
-.side-profile{padding:14px;border:1px solid rgba(255,255,255,.07);border-radius:15px;background:linear-gradient(145deg,rgba(25,30,45,.72),rgba(12,15,24,.72));margin-bottom:14px}.side-avatar{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#8b5cf6,#2563eb);font-family:"Space Grotesk";font-weight:700;color:#fff}.side-name{font-weight:700;color:#f5f7fb;font-size:13px}.side-role{color:#727d91;font-size:10px;margin-top:2px}.side-section{color:#596477;font-size:9px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;margin:20px 8px 7px}.footer-note{text-align:center;color:#555e70;font-size:10px;padding:28px 0}
-@media(max-width:1000px){.feature-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.feature-grid{grid-template-columns:1fr}.dashboard-hero{padding:32px 22px}.top-chip{display:none}.workspace-header{display:block}}
+/* Top Horizontal Corporate Navigation Component Bar Banner */
+.brand-navigation-ribbon {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 22px 50px;
+background-color: rgba(13, 15, 20, 0.95);
+border-bottom: 2px solid rgba(255, 90, 31, 0.3);
+margin-bottom: 0px;
+backdrop-filter: blur(10px);
+animation: fluidPanelSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.brand-logo-cluster {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+.brand-orange-block {
+width: 14px;
+height: 14px;
+background-color: #ff5a1f;
+box-shadow: 0 0 12px #ff5a1f;
+}
+.brand-logo-text-string {
+font-size: 16px;
+font-weight: 900;
+letter-spacing: 1.5px;
+color: #ffffff;
+text-transform: uppercase;
+}
+
+/* Neo-Brutalist Technical Panel Workspace Shell Modules */
+.neobrutalist-content-card {
+    background-color: rgba(19, 22, 31, 0.92) !important;
+    border: 2px solid rgba(255, 90, 31, 0.2) !important;
+    border-radius: 0px !important;
+    padding: 50px !important;
+    margin-bottom: 40px !important;
+    position: relative;
+    backdrop-filter: blur(12px);
+    animation: fluidPanelSlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-name: matrixPulseGlow;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+.neobrutalist-content-card::before {
+    content: ''; position: absolute; top: -5px; left: -5px; width: 10px; height: 10px; background-color: #ff5a1f;
+}
+.neobrutalist-content-card::after {
+    content: ''; position: absolute; bottom: -5px; right: -5px; width: 10px; height: 10px; background-color: #ff5a1f;
+}
+
+/* Core Native Elements Typographical Configurations Overrides */
+h1 {
+    font-size: 48px !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    letter-spacing: -1.5px !important;
+    text-transform: uppercase !important;
+    margin-top: 0px !important;
+    margin-bottom: 15px !important;
+}
+h2 { font-size: 26px !important; font-weight: 800 !important; color: #ffffff !important; text-transform: uppercase !important; }
+h3 { font-size: 13px !important; font-weight: 800 !important; color: #ff5a1f !important; text-transform: uppercase !important; letter-spacing: 3px !important; margin-bottom: 12px !important; }
+.card-narrative-paragraph { font-size: 16px; line-height: 1.6; color: #8fa0be; margin-bottom: 30px; }
+
+/* Premium Block Core Buttons Customization Layout */
+.stButton>button {
+    background-color: #ff5a1f !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 90, 31, 0.5) !important;
+    border-radius: 0px !important;
+    padding: 16px 40px !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    box-shadow: 0 4px 15px rgba(255, 90, 31, 0.25) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    width: 100% !important;
+}
+.stButton>button:hover {
+    background-color: #ffffff !important;
+    color: #0d0f14 !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 0 30px rgba(255, 95, 31, 0.7) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Functional Processing Form Elements Styling Customization */
+.stTextArea textarea, .stTextInput input {
+    background-color: #161a24 !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 90, 31, 0.3) !important;
+    border-radius: 0px !important;
+    font-family: monospace !important;
+    padding: 16px !important;
+    font-size: 14px !important;
+}
+.stTextArea textarea:focus, .stTextInput input:focus {
+    border-color: #ff5a1f !important;
+    box-shadow: 0 0 12px rgba(255, 90, 31, 0.4) !important;
+}
+
+/* High-End Dark Workspace Chat Logs Layout */
+.stChatMessage {
+    background-color: #141722 !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 90, 31, 0.25) !important;
+    border-radius: 0px !important;
+    padding: 24px !important;
+    margin-bottom: 18px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+    animation: fluidPanelSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Left Sidebar Global Panel Formats Intercept */
+section[data-testid="stSidebar"] {
+    background-color: #08090d !important;
+    border-right: 2px solid rgba(255, 90, 31, 0.3) !important;
+}
+section[data-testid="stSidebar"] .stRadio label p {
+    color: #8fa0be !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
 </style>
+
 """, unsafe_allow_html=True)
 
-# =============================================================================
-# 3. SECURE REPOSITORY BACKEND CLIENT INTEGRATIONS & TELEMETRY INITIALIZATION
-# =============================================================================
+=============================================================================
+
+3. SECURE REPOSITORY BACKEND CLIENT INTEGRATIONS & TELEMETRY INITIALIZATION
+
+=============================================================================
+
 api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
 
 llm = ChatGroq(
-    api_key=api_key,
-    model="meta-llama/llama-4-scout-17b-16e-instruct"
+api_key=api_key,
+model="meta-llama/llama-4-scout-17b-16e-instruct"
 )
 search = DuckDuckGoSearchRun()
 tools = [search]
 agent = create_react_agent(llm, tools)
-# =============================================================================
-# 4. APP SYSTEM RUNTIME ACCESS STATE GATEWAY
-# =============================================================================
+
+=============================================================================
+
+4. APP SYSTEM RUNTIME ACCESS STATE GATEWAY
+
+=============================================================================
+
 if "app_unlocked" not in st.session_state:
-    st.session_state.app_unlocked = False
+st.session_state.app_unlocked = False
 
-# Render Gateway Landing Overlay Shell
+Render Gateway Landing Overlay Shell
+
 if not st.session_state.app_unlocked:
-    st.markdown("""
-        <div class="telemetry-landing-wrapper">
-            <div class="telemetry-tagline">INITIALIZING ACCESS INSTANCE PROTOCOLS</div>
-            <div class="telemetry-title">KUBOOM CHATBOT</div>
-            <div class="telemetry-subtitle">A chatbot made by Rohit</div>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    col_entry_l, col_entry_btn, col_entry_r = st.columns([1, 1.4, 1])
-    with col_entry_btn:
-        if st.button("LAUNCH WORKSPACE ENGINES 🚀", use_container_width=True):
-            st.session_state.app_unlocked = True
-            st.rerun()
-    st.stop()
-
-# =============================================================================
-# 5. GLOBAL HORIZONTAL BRAND SYSTEM RIBBON NAVIGATION
 st.markdown("""
-<div class="product-topbar fade-up">
-  <div class="product-brand">
-    <div class="product-logo">✦</div>
-    <div><div class="product-name">KUBOOM AI</div><div class="product-desc">Rohit's intelligent workspace</div></div>
-  </div>
-  <div class="top-actions">
-    <div class="top-chip"><span class="online-dot"></span>All systems operational</div>
-    <div class="top-chip">Llama powered</div>
-  </div>
+<div class="telemetry-landing-wrapper">
+<div class="telemetry-tagline">INITIALIZING ACCESS INSTANCE PROTOCOLS</div>
+<div class="telemetry-title">KUBOOM CHATBOT</div>
+<div class="telemetry-subtitle">A chatbot made by Rohit</div>
 </div>
 """, unsafe_allow_html=True)
 
-st.sidebar.markdown("""
-<div class="side-profile">
-  <div style="display:flex;align-items:center;gap:10px">
-    <div class="side-avatar">R</div>
-    <div><div class="side-name">Rohit's Workspace</div><div class="side-role">AI STUDY & CODING ASSISTANT</div></div>
-  </div>
+col_entry_l, col_entry_btn, col_entry_r = st.columns([1, 1.4, 1])
+with col_entry_btn:
+    if st.button("LAUNCH WORKSPACE ENGINES 🚀", use_container_width=True):
+        st.session_state.app_unlocked = True
+        st.rerun()
+st.stop()
+
+=============================================================================
+
+5. GLOBAL HORIZONTAL BRAND SYSTEM RIBBON NAVIGATION
+
+=============================================================================
+
+st.markdown("""
+<div class="brand-navigation-ribbon">
+<div class="brand-logo-cluster">
+<div class="brand-orange-block"></div>
+<div class="brand-logo-text-string">WELCOME TO ROHIT'S CHATBOT</div>
 </div>
-<div class="side-section">Workspace modules</div>
+<a style="
+         display: inline-block;
+         background-color: #ff5a1f;
+         color: #ffffff !important;
+         font-size: 11px;
+         font-weight: 800;
+         padding: 12px 24px;
+         text-transform: uppercase;
+         letter-spacing: 1.5px;
+         border: none;
+         border-radius: 0px;
+         text-decoration: none !important;
+         box-shadow: 0 4px 15px rgba(255, 90, 31, 0.4);
+         transition: all 0.2s ease;
+     " href="https://github.io" target="_blank">🔗 VIEW PORTFOLIO</a>
+</div>
+<div style="margin-bottom: 40px;"></div>
 """, unsafe_allow_html=True)
+
+Left Sidebar Instance Selectors
+
+st.sidebar.markdown("<h3 style='margin-top:10px;'>⚙️ UTILITY FRAMEWORK</h3>", unsafe_allow_html=True)
+page = st.sidebar.radio("CHOOSE MODULE:", [
+"💬 Chat Matrix",
+"🔍 Realtime Web Crawler",
+"💻 Code Explainer",
+"📝 Examination Quiz",
+"📄 Document Structural Parser"
+])
+st.sidebar.markdown("---")
+st.sidebar.markdown("<div style='font-size:11px; color:#555e72; font-weight:800; text-transform:uppercase;'>COMPILED BY ROHIT • METAMATRIX ENGINE</div>", unsafe_allow_html=True)
+
+=============================================================================
+
+6. INSTANCE CONTROL SWITCH PROCESSING LOGIC
+
+=============================================================================
+
+A. CORE CHAT ENGINE MODULE
+
+if page == "💬 Chat Matrix":
+st.markdown("""
+<div class="neobrutalist-content-card">
+<h3>CORE CONVERSATIONAL MATRIX</h3>
+<h1>💬 CONVERSATIONAL ASSISTANT</h1>
+<div class="card-narrative-paragraph">Direct pipeline into raw Llama processing layers optimized for engineering concepts, advanced BTech topics, and framework tutorials.</div>
+</div>
+""", unsafe_allow_html=True)
+
+system_prompt = """You are Rohit's personal AI Study & Coding Assistant.
+
+You help with programming, AI/ML concepts, debugging code, and BTech subjects.
+You explain things simply and clearly, like a smart friend who knows everything about tech.
+You are encouraging, friendly, and always push the user to learn and grow.
+Keep responses concise and practical."""
+
+if "messages" not in st.session_state:
+    st.session_state.messages = [{"role": "system", "content": system_prompt}]
+
+# Structural Telemetry Layout Grid Row
+st.write("### 📊 Workspace Performance Records")
+col_stat1, col_stat2, col_stat3 = st.columns(3)
+with col_stat1:
+    st.metric(label="ACTIVE PROCESSING CORE", value="Llama 3.3 70B")
+with col_stat2:
+    st.metric(label="ACTIVE STORAGE FLOWS", value=f"{len(st.session_state.messages) - 1} Signals")
+with col_stat3:
+    if st.button("🗑️ PURGE MEMORY PACKETS", use_container_width=True):
+        st.session_state.messages = [{"role": "system", "content": system_prompt}]
+        st.rerun()
+
+st.write("---")
+st.write("### 📟 Transaction Streams Log")
+
+# Render conversational logs
+for msg in st.session_state.messages:
+    if msg["role"] != "system":
+        st.chat_message(msg["role"]).write(msg["content"])
+
+chat_matrix_input = st.chat_input("Enter message packet strings or curriculum queries...")
+if chat_matrix_input:
+    st.session_state.messages.append({"role": "user", "content": chat_matrix_input})
+    st.chat_message("user").write(chat_matrix_input)
+    
+    with st.spinner("Processing Matrix Data..."):
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=st.session_state.messages
+        )
+    reply_string = response.choices[0].message.content
+
+    st.session_state.messages.append({"role": "assistant", "content": reply_string})
+    st.chat_message("assistant").write(reply_string)
+
+B. AUTONOMOUS NETWORK SCRAPER SEARCH ENGINE MODULE
+
+elif page == "🔍 Realtime Web Crawler":
+st.markdown("""
+<div class="neobrutalist-content-card">
+<h3>REAL-TIME EXPLORATION PROTOCOLS</h3>
+<h1>🔍 WEB SEARCH MODULE</h1>
+<div class="card-narrative-paragraph">Queries active distributed network databases to aggregate and index live software framework parameters instantly.</div>
+</div>
+""", unsafe_allow_html=True)
+
+if "search_messages" not in st.session_state:
+    st.session_state.search_messages = []
+
+# Local Metric Telemetry Tracking Dashboard Rows
+st.write("### 📊 Live Scraper Telemetry Metrics")
+col_crawl_1, col_crawl_2, col_crawl_3 = st.columns(3)
+with col_crawl_1:
+    st.metric(label="EXTRACTION SEARCH CORE", value="DuckDuckGo Node")
+with col_crawl_2:
+    st.metric(label="ACTIVE STREAM SESSIONS", value=f"{len(st.session_state.search_messages)} Buffers")
+with col_crawl_3:
+    if st.button("🗑️ RESET LIVE CRAWL STREAM", use_container_width=True):
+        st.session_state.search_messages = []
+        st.rerun()
+
+st.write("---")
+st.write("### 📟 Live Web Stream")
+for msg in st.session_state.search_messages:
+    st.chat_message(msg["role"]).write(msg["content"])
+
+crawler_query_input = st.chat_input("Input focus query string fields for autonomous crawl index...")
+if crawler_query_input:
+    st.session_state.search_messages.append({"role": "user", "content": crawler_query_input})
+    st.chat_message("user").write(crawler_query_input)
+    
+    with st.spinner("Deploying Extraction Agents Across Networks..."):
+        response = agent.invoke({"messages": [{"role": "user", "content": crawler_query_input}]})
+        extracted_reply = response["messages"][-1].content
+        
+    st.session_state.search_messages.append({"role": "assistant", "content": extracted_reply})
+    st.chat_message("assistant").write(extracted_reply)
+
+C. RUNTIME CODE REFACTOR ANALYSIS LAB
+
+elif page == "💻 Code Explainer":
+st.markdown("""
+<div class="neobrutalist-content-card">
+<h3>LOGIC DECONSTRUCTION FRAMEWORK</h3>
+<h1>💻 CODE ANALYSIS NODE</h1>
+<div class="card-narrative-paragraph">Paste system scripts to evaluate space complexities, identify structural bugs, or generate optimal assembly refactors.</div>
+</div>
+""", unsafe_allow_html=True)
+
+# Architectural Telemetry Dashboard Rows
+st.write("### 📊 Compiler Diagnostic Parameters")
+col_code_1, col_code_2, col_code_3 = st.columns(3)
+with col_code_1:
+    st.metric(label="PARSER COMPILER ENGINE", value="Llama-3.3-70B")
+with col_code_2:
+    st.metric(label="MAX COMPUTE LIMIT", value="8,192 Tokens")
+with col_code_3:
+    st.metric(label="SYSTEM LATENCY STATUS", value="OPTIMAL // 0.02s")
+
+st.write("---")
+st.write("### 📟 Source Script Array Buffer Input")
+source_script_buffer = st.text_area("", height=220, placeholder="def compute_matrix():\n    return 'Execution Array Calibrated'")
+
+col_btn_1, col_btn_2, col_btn_3 = st.columns(3)
+with col_btn_1:
+    trigger_explain = st.button("📖 EXPLAIN ARCHITECTURE", use_container_width=True)
+with col_btn_2:
+    trigger_debug = st.button("🐛 AUDIT SYNTAX FAULTS", use_container_width=True)
+with col_btn_3:
+    trigger_improve = st.button("⚡ OPTIMIZE PERFORMANCE", use_container_width=True)
+
+if source_script_buffer:
+    if trigger_explain:
+        with st.spinner("Mapping Call Trees..."):
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {"role": "system", "content": "You are an expert coding assistant. Explain code simply and clearly."},
+                    {"role": "user", "content": f"Explain this code step by step:\n\n{source_script_buffer}"}
+                ]
+            )
+        st.markdown('<div class="neobrutalist-content-card"><h3>📖 RECONSTRUCTED LOGIC EXPLANATION</h3>', unsafe_allow_html=True)
+        st.write(response.choices.message.content)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    if trigger_debug:
+        with st.spinner("Scanning for Runtime Exceptions..."):
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {"role": "system", "content": "You are an expert debugger. Find bugs and errors in code."},
+                    {"role": "user", "content": f"Find any bugs or errors in this code:\n\n{source_script_buffer}"}
+                ]
+            )
+        st.markdown('<div class="neobrutalist-content-card"><h3>🐛 DIAGNOSTIC CONTEXT LOGS</h3>', unsafe_allow_html=True)
+        st.write(response.choices.message.content)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    if trigger_improve:
+        with st.spinner("Refactoring Algorithmic Arrays..."):
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {"role": "system", "content": "You are an expert software engineer. Suggest improvements to code."},
+                    {"role": "user", "content": f"Suggest improvements for this code:\n\n{source_script_buffer}"}
+                ]
+            )
+        st.markdown('<div class="neobrutalist-content-card"><h3>⚡ PROPOSED SYSTEM OUTLINES</h3>', unsafe_allow_html=True)
+        st.write(response.choices.message.content)
+        st.markdown('</div>', unsafe_allow_html=True)
+else:
+    st.info("ℹ) Supply standard target program code into the matrix buffer text area box above to activate analytics.")
+
+D. TOPIC COMPREHENSION ASSESSMENT CONFIGURATOR MODULE
+
+elif page == "📝 Quiz Matrix":
+st.markdown("""
+<div class="neobrutalist-content-card">
+<h3>COMPILING COMPREHENSION METRICS</h3>
+<h1>📝 MCQ EVALUATION MATRIX</h1>
+<div class="card-narrative-paragraph">Generate multiple choice curriculum training sets dynamically from specified skill domains.</div>
+</div>
+""", unsafe_allow_html=True)
+
+# Local Telemetry Dashboard Rows
+st.write("### 📊 Quiz Evaluation Metrics")
+col_quiz_1, col_code_2, col_code_3 = st.columns(3)
+with col_quiz_1:
+    st.metric(label="EVALUATION COMPILER", value="Llama-3.3-70B")
+with col_code_2:
+    st.metric(label="TARGET GRADING SYSTEM", value="BTech / Bounded")
+with col_code_3:
+    st.metric(label="SCHEMA COMPLIANCE STATUS", value="100% SECURE")
+
+st.write("---")
+st.write("### ⚙️ Evaluation Matrix Parameters")
+target_subject_topic = st.text_input("Declare Target Subject Focus Topic Domain Tree:", placeholder="e.g. Backpropagation Math Operations")
+magnitude_questions = st.slider("Quantity of Target Examination Nodes:", 3, 10, 5)
+
+if st.button("🎯 SYNTHESIZE ASSESSMENT OBJECTS", use_container_width=True):
+    if target_subject_topic:
+        with st.spinner("Formulating Framework Schematics..."):
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {"role": "system", "content": "You are an expert teacher. Generate clear MCQ questions with 4 options and correct answers."},
+                    {"role": "user", "content": f"Generate {magnitude_questions} MCQ questions about {target_subject_topic}. Format each question with 4 options (A, B, C, D) and mark the correct answer at the end."}
+                ]
+            )
+        st.markdown('<div class="neobrutalist-content-card"><h3>🎯 TARGET GENERATED EVALUATION RUNTIMES</h3>', unsafe_allow_html=True)
+        st.write(response.choices.message.content)
+        st.markdown('</div>', unsafe_allow_html=True)
+    else:
+        st.warning("Missing Configuration Variable: Input focus topic domain branch parameters first.")
+
+E. DOCUMENT STRUCTURAL TEXT PARSER LAB
+
+elif page == "📄 Document Structural Parser":
+st.markdown("""
+<div class="neobrutalist-content-card">
+<h3>SEMANTIC BLUEPRINT TEXT PROCESSING</h3>
+<h1>📄 STRUCTURAL FILE PARSER</h1>
+<div class="card-narrative-paragraph">Upload heavy configuration documentation packages or textbook sheets to map text values and search parameters instantly.</div>
+</div>
+""", unsafe_allow_html=True)
+
+# Structural Telemetry Layout Grid Row
+st.write("### 📊 Document Mounting Metrics")
+col_pdf_1, col_pdf_2, col_pdf_3 = st.columns(3)
+with col_pdf_1:
+    st.metric(label="PARSER BUFFER TYPE", value="PyPDF2 Engine")
+with col_pdf_2:
+    st.metric(label="DATA INPUT STATUS", value="READY FOR MOUNT")
+with col_pdf_3:
+    if st.button("🗑️ PURGE DOCUMENT CONTEXT", use_container_width=True):
+        st.session_state.pdf_messages = []
+        st.rerun()
+
+st.write("---")
+st.write("### 📁 Archive Data Storage Mount")
+uploaded_pdf_asset = st.file_uploader("Upload Target Technical PDF Schematic Asset:", type="pdf")
+final_extracted_pdf_text = ""
+
+if uploaded_pdf_asset:
+    pdf_file_reader_instance = PyPDF2.PdfReader(io.BytesIO(uploaded_pdf_asset.read()))
+    for page_index_num in pdf_file_reader_instance.pages:
+        final_extracted_pdf_text += page_index_num.extract_text() or ""
+    st.success("Target Content Dataset Mounted and Verified Successfully.")
+
+if "pdf_messages" not in st.session_state:
+    st.session_state.pdf_messages = []
+
+st.write("---")
+st.write("### 📟 Context Interaction Console")
+for msg in st.session_state.pdf_messages:
+    st.chat_message(msg["role"]).write(msg["content"])
+
+pdf_user_query_input = st.chat_input("Query structural document fields...")
+if pdf_user_query_input:
+    if not final_extracted_pdf_text.strip():
+        st.warning("Data Missing Error: Please upload a valid structural manual PDF target asset first.")
+    else:
+        st.session_state.pdf_messages.append({"role": "user", "content": pdf_user_query_input})
+        st.chat_message("user").write(pdf_user_query_input)
+        
+        with st.spinner("Extracting Semantic Node Elements..."):
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {"role": "system", "content": f"Answer the user's question accurately using only the provided document text context.\n\nContext:\n{final_extracted_pdf_text}"},
+                    *st.session_state.pdf_messages
+                ]
+            )
+        reply_data_content = response.choices.message.content
+        st.session_state.pdf_messages.append({"role": "assistant", "content": reply_data_content})
+        st.chat_message("assistant").write(reply_data_content)
