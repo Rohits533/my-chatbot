@@ -12,7 +12,7 @@ import datetime
 
 1. #CORE STREAMLIT INSTANCE INITIALIZATION & ARCHITECTURE OVERRIDES
 
-=============================================================================
+#=============================================================================
 
 st.set_page_config(
 page_title="Rohit's AI Assistant",
@@ -21,11 +21,11 @@ layout="wide",
 initial_sidebar_state="expanded"
 )
 
-=============================================================================
+#=============================================================================
 
 2. BRAND STYLE CONFIGURATION METRICS (CHAINGPT LABS GLOWING LASER GRID)
 
-=============================================================================
+#=============================================================================
 
 st.markdown("""
 <style>
@@ -244,11 +244,11 @@ section[data-testid="stSidebar"] .stRadio label p {
 
 """, unsafe_allow_html=True)
 
-=============================================================================
+#=============================================================================
 
 3. SECURE REPOSITORY BACKEND CLIENT INTEGRATIONS & TELEMETRY INITIALIZATION
 
-=============================================================================
+#=============================================================================
 
 api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
@@ -261,11 +261,11 @@ search = DuckDuckGoSearchRun()
 tools = [search]
 agent = create_react_agent(llm, tools)
 
-=============================================================================
+#=============================================================================
 
 4. APP SYSTEM RUNTIME ACCESS STATE GATEWAY
 
-=============================================================================
+#=============================================================================
 
 if "app_unlocked" not in st.session_state:
 st.session_state.app_unlocked = False
@@ -332,11 +332,11 @@ page = st.sidebar.radio("CHOOSE MODULE:", [
 st.sidebar.markdown("---")
 st.sidebar.markdown("<div style='font-size:11px; color:#555e72; font-weight:800; text-transform:uppercase;'>COMPILED BY ROHIT • METAMATRIX ENGINE</div>", unsafe_allow_html=True)
 
-=============================================================================
+#=============================================================================
 
 6. INSTANCE CONTROL SWITCH PROCESSING LOGIC
 
-=============================================================================
+#=============================================================================
 
 A. CORE CHAT ENGINE MODULE
 
