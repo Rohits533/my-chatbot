@@ -287,16 +287,43 @@ if not st.session_state.app_unlocked:
     st.stop()
 
 # =============================================================================
-# 5. GLOBAL HORIZONTAL BRAND SYSTEM RIBBON NAVIGATION
+# 5. GLOBAL HORIZONTAL BRAND SYSTEM RIBBON NAVIGATION & AMBIENT MUSIC ENGINE
 # =============================================================================
 
+if "music_playing" not in st.session_state:
+    st.session_state.music_playing = False
+
+# Callback handlers for music playback state toggle
+def toggle_play():
+    st.session_state.music_playing = True
+
+def toggle_pause():
+    st.session_state.music_playing = False
+
+# Render Brand Navigation Ribbon with Embedded Controls
 st.markdown("""
 <div class="brand-navigation-ribbon">
 <div class="brand-logo-cluster">
 <div class="brand-orange-block"></div>
 <div class="brand-logo-text-string">WELCOME TO ROHIT'S CHATBOT</div>
 </div>
-<a style="
+""", unsafe_allow_html=True)
+
+# Render Controls and Portfolio Link in Columns within the top layout
+col_nav_controls, col_nav_btn = st.columns([1.2, 0.8])
+with col_nav_controls:
+    subcol_lbl, subcol_p, subcol_s = st.columns([1.5, 1, 1])
+    with subcol_lbl:
+        st.markdown("<div style='font-size: 11px; font-weight: 800; color: #ff5a1f; letter-spacing: 1px; padding-top: 10px; text-transform: uppercase;'>🎵 VIBE AUDIO:</div>", unsafe_allow_html=True)
+    with subcol_p:
+        st.button("▶ PLAY", on_click=toggle_play, use_container_width=True, key="audio_play_btn")
+    with subcol_s:
+        st.button("⏸ PAUSE", on_click=toggle_pause, use_container_width=True, key="audio_pause_btn")
+
+with col_nav_btn:
+    st.markdown("""
+    <div style="text-align: right;">
+    <a style="
          display: inline-block;
          background-color: #ff5a1f;
          color: #ffffff !important;
@@ -311,9 +338,18 @@ st.markdown("""
          box-shadow: 0 4px 15px rgba(255, 90, 31, 0.4);
          transition: all 0.2s ease;
      " href="https://github.io" target="_blank">🔗 VIEW PORTFOLIO</a>
-</div>
-<div style="margin-bottom: 40px;"></div>
-""", unsafe_allow_html=True)
+    </div>
+    </div>
+    <div style="margin-bottom: 40px;"></div>
+    """, unsafe_allow_html=True)
+
+# Inject background audio element depending on playback state toggle
+if st.session_state.music_playing:
+    st.markdown("""
+    <audio autoplay loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+    </audio>
+    """, unsafe_allow_html=True)
 
 # Left Sidebar Instance Selectors
 st.sidebar.markdown("<h3 style='margin-top:10px;'>⚙️ UTILITY FRAMEWORK</h3>", unsafe_allow_html=True)
