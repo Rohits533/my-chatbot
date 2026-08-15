@@ -199,18 +199,19 @@ h3 { font-size: 13px !important; font-weight: 800 !important; color: #ff5a1f !im
 }
 
 /* Functional Processing Form Elements Styling Customization */
-.stTextArea textarea, .stTextInput input {
+.stTextArea textarea, .stTextInput input, div[data-baseweb="input"] input {
     background-color: #161a24 !important;
-    color: #ffffff !important;
+    color: #ff5a1f !important;
     border: 1px solid rgba(255, 90, 31, 0.3) !important;
     border-radius: 0px !important;
     font-family: monospace !important;
     padding: 16px !important;
     font-size: 14px !important;
 }
-.stTextArea textarea:focus, .stTextInput input:focus {
+.stTextArea textarea:focus, .stTextInput input:focus, div[data-baseweb="input"] input:focus {
     border-color: #ff5a1f !important;
     box-shadow: 0 0 12px rgba(255, 90, 31, 0.4) !important;
+    color: #ff5a1f !important;
 }
 
 /* High-End Dark Workspace Chat Logs Layout */
@@ -225,8 +226,9 @@ h3 { font-size: 13px !important; font-weight: 800 !important; color: #ff5a1f !im
     animation: fluidPanelSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Force all text inside chat messages to be orange */
-.stChatMessage p, .stChatMessage span, .stChatMessage div, .stChatMessage li, .stChatMessage label {
+/* Force all text and user inputs inside chat messages and chat inputs to be bright orange */
+.stChatMessage p, .stChatMessage span, .stChatMessage div, .stChatMessage li, .stChatMessage label,
+div[data-testid="stChatInput"] textarea, div[data-testid="stChatInput"] input {
     color: #ff5a1f !important;
 }
 
