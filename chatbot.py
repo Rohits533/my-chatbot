@@ -255,8 +255,8 @@ api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
 
 llm = ChatGroq(
-api_key=api_key,
-model="meta-llama/llama-4-scout-17b-16e-instruct"
+    api_key=api_key,
+    model="llama-3.3-70b-versatile"  # <-- Updated from unverified meta-llama string
 )
 search = DuckDuckGoSearchRun()
 tools = [search]
@@ -324,7 +324,7 @@ with col_nav_btn:
          text-decoration: none !important;
          box-shadow: 0 4px 15px rgba(255, 90, 31, 0.4);
          transition: all 0.2s ease;
-     " href="https://github.io" target="_blank">🔗 VIEW PORTFOLIO</a>
+    " href="https://github.io" target="_blank">🔗 VIEW PORTFOLIO</a>
     </div>
     </div>
     <div style="margin-bottom: 40px;"></div>
