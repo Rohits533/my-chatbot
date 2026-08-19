@@ -256,7 +256,7 @@ client = Groq(api_key=api_key)
 
 llm = ChatGroq(
     api_key=api_key,
-    model="llama-3.3-70b-versatile"  # <-- Updated from unverified meta-llama string
+    model="openai/gpt-oss-120b"  # Updated to current active model
 )
 search = DuckDuckGoSearchRun()
 tools = [search]
@@ -370,7 +370,7 @@ Keep responses concise and practical."""
     st.write("### 📊 Workspace Performance Records")
     col_stat1, col_stat2, col_stat3 = st.columns(3)
     with col_stat1:
-        st.metric(label="ACTIVE PROCESSING CORE", value="Llama 3.3 70B")
+        st.metric(label="ACTIVE PROCESSING CORE", value="GPT-OSS 120B")
     with col_stat2:
         st.metric(label="ACTIVE STORAGE FLOWS", value=f"{len(st.session_state.messages) - 1} Signals")
     with col_stat3:
@@ -393,7 +393,7 @@ Keep responses concise and practical."""
         
         with st.spinner("Processing Matrix Data..."):
             response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
+                model="openai/gpt-oss-120b",  # Updated to current active model
                 messages=st.session_state.messages
             )
         reply_string = response.choices[0].message.content
@@ -457,7 +457,7 @@ elif page == "💻 Code Explainer":
     st.write("### 📊 Compiler Diagnostic Parameters")
     col_code_1, col_code_2, col_code_3 = st.columns(3)
     with col_code_1:
-        st.metric(label="PARSER COMPILER ENGINE", value="Llama-3.3-70B")
+        st.metric(label="PARSER COMPILER ENGINE", value="GPT-OSS 120B")
     with col_code_2:
         st.metric(label="MAX COMPUTE LIMIT", value="8,192 Tokens")
     with col_code_3:
@@ -479,7 +479,7 @@ elif page == "💻 Code Explainer":
         if trigger_explain:
             with st.spinner("Mapping Call Trees..."):
                 response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model="openai/gpt-oss-120b",  # Updated to current active model
                     messages=[
                         {"role": "system", "content": "You are an expert coding assistant. Explain code simply and clearly."},
                         {"role": "user", "content": f"Explain this code step by step:\n\n{source_script_buffer}"}
@@ -492,7 +492,7 @@ elif page == "💻 Code Explainer":
         if trigger_debug:
             with st.spinner("Scanning for Runtime Exceptions..."):
                 response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model="openai/gpt-oss-120b",  # Updated to current active model
                     messages=[
                         {"role": "system", "content": "You are an expert debugger. Find bugs and errors in code."},
                         {"role": "user", "content": f"Find any bugs or errors in this code:\n\n{source_script_buffer}"}
@@ -505,7 +505,7 @@ elif page == "💻 Code Explainer":
         if trigger_improve:
             with st.spinner("Refactoring Algorithmic Arrays..."):
                 response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model="openai/gpt-oss-120b",  # Updated to current active model
                     messages=[
                         {"role": "system", "content": "You are an expert software engineer. Suggest improvements to code."},
                         {"role": "user", "content": f"Suggest improvements for this code:\n\n{source_script_buffer}"}
@@ -531,7 +531,7 @@ elif page == "📝 Quiz Matrix":
     st.write("### 📊 Quiz Evaluation Metrics")
     col_quiz_1, col_code_2, col_code_3 = st.columns(3)
     with col_quiz_1:
-        st.metric(label="EVALUATION COMPILER", value="Llama-3.3-70B")
+        st.metric(label="EVALUATION COMPILER", value="GPT-OSS 120B")
     with col_code_2:
         st.metric(label="TARGET GRADING SYSTEM", value="BTech / Bounded")
     with col_code_3:
@@ -546,7 +546,7 @@ elif page == "📝 Quiz Matrix":
         if target_subject_topic:
             with st.spinner("Formulating Framework Schematics..."):
                 response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model="openai/gpt-oss-120b",  # Updated to current active model
                     messages=[
                         {"role": "system", "content": "You are an expert teacher. Generate clear MCQ questions with 4 options and correct answers."},
                         {"role": "user", "content": f"Generate {magnitude_questions} MCQ questions about {target_subject_topic}. Format each question with 4 options (A, B, C, D) and mark the correct answer at the end."}
@@ -609,7 +609,7 @@ elif page == "📄 Document Structural Parser":
             
             with st.spinner("Extracting Semantic Node Elements..."):
                 response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model="openai/gpt-oss-120b",  # Updated to current active model
                     messages=[
                         {"role": "system", "content": f"Answer the user's question accurately using only the provided document text context.\n\nContext:\n{final_extracted_pdf_text}"},
                         *st.session_state.pdf_messages
